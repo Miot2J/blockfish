@@ -1,5 +1,7 @@
 package com.project.blockfish.businesslogic.service.impl;
 
+import com.project.blockfish.businesslogic.domain.File;
+import com.project.blockfish.businesslogic.domain.FileRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,8 +14,15 @@ public class FileUploadService {
     // 리눅스 기준으로 파일 경로를 작성 ( 루트 경로인 /으로 시작한다. )
     // 윈도우라면 workspace의 드라이브를 파악하여 JVM이 알아서 처리해준다.
     // 따라서 workspace가 C드라이브에 있다면 C드라이브에 upload 폴더를 생성해 놓아야 한다.
+    // 서버의 경로 지정
     private static final String SAVE_PATH = "/Users/minho/Downloads";
     private static final String PREFIX_URL = "/Users/minho/Downloads";
+    private FileRepository fileRepository;
+
+    public void saveFileToDB(File file) {
+        System.out.println("file = " + file);
+        fileRepository.save(file);
+    }
 
     public String restore(MultipartFile multipartFile) {
         String url = null;
@@ -21,15 +30,15 @@ public class FileUploadService {
         try {
             // 파일 정보
             String originFilename = multipartFile.getOriginalFilename();
-            String extName
+            String extensionName
                     = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
             Long size = multipartFile.getSize();
 
             // 서버에서 저장 할 파일 이름
-            String saveFileName = genSaveFileName(extName);
+            String saveFileName = genSaveFileName(extensionName);
 
             System.out.println("originFilename : " + originFilename);
-            System.out.println("extensionName : " + extName);
+            System.out.println("extensionName : " + extensionName);
             System.out.println("size : " + size);
             System.out.println("saveFileName : " + saveFileName);
 
