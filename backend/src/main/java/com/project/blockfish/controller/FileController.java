@@ -2,17 +2,17 @@ package com.project.blockfish.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.blockfish.businesslogic.domain.Category;
-import com.project.blockfish.businesslogic.response.Response;
-import com.project.blockfish.businesslogic.domain.SFTPSender;
-import com.project.blockfish.businesslogic.service.SearchService;
-import com.project.blockfish.domainmodel.FileInformationDto;
-import com.project.blockfish.domainmodel.KlayDto;
-import com.project.blockfish.businesslogic.service.FileInformationService;
-import com.project.blockfish.businesslogic.service.JwtUtil;
-import com.project.blockfish.businesslogic.service.klay.KlayService;
-import com.project.blockfish.businesslogic.domain.FileInformation;
-import com.project.blockfish.domainmodel.SearchedFileDto;
+import com.project.blockfish.file.Category;
+import com.project.blockfish.response.Response;
+import com.project.blockfish.file.SFTPSender;
+import com.project.blockfish.file.service.SearchService;
+import com.project.blockfish.dto.FileInformationDto;
+import com.project.blockfish.dto.KlayDto;
+import com.project.blockfish.file.service.FileInformationService;
+import com.project.blockfish.member.service.JwtUtil;
+import com.project.blockfish.file.service.klay.KlayService;
+import com.project.blockfish.file.FileInformation;
+import com.project.blockfish.dto.SearchedFileDto;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
