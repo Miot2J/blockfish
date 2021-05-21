@@ -31,6 +31,7 @@ public class MemberController {
     @PostMapping("/signup")
     public Response signUpUser(@RequestBody Member member) {
         Response response = new Response();
+        System.out.println("Member");
         System.out.println(member);
         Logger logger = LoggerFactory.getLogger(this.getClass());
         logger.debug("Select Start");
