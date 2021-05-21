@@ -1,5 +1,8 @@
 package com.project.blockfish.controller;
 
+import com.project.blockfish.businesslogic.domain.Member;
+import com.project.blockfish.businesslogic.response.Response;
+import com.project.blockfish.businesslogic.service.impl.FileUploadService;
 import com.project.blockfish.domainmodel.KlayDto;
 import com.project.blockfish.businesslogic.service.FileService;
 import com.project.blockfish.businesslogic.service.JwtUtil;
@@ -19,10 +22,28 @@ import java.io.InputStream;
 public class FileController {
     private final FileService fileService;
     private final KlayService klayService;
+    private final FileUploadService fileUploadService;
     private final JwtUtil jwtUtil;
     private static final String UPLOAD_DIRECTORY = "/Users/j/Downloads/upload/";
 //    "/Users/minho/Downloads/upload/"
 
+
+    @PostMapping("/fileupload")
+    public Response dbUpload(@RequestBody com.project.blockfish.businesslogic.domain.File file) {
+        Response response = new Response();
+        System.out.println("fio");
+        System.out.println(file);
+        try{
+            fileUploadService.saveFileToDB(file);
+            response.setResponse("success");
+            response.setMessage("DB애 업로드를 성공적으로 완료했습니다.");
+        } catch(Exception e){
+            response.setResponse("fail");
+            response.setMessage("DB 업로드 중 오류가 발생했습니다.");
+            response.setData(e.toString());
+        }
+        return response;
+    }
 
     @PostMapping("/upload")
     public KlayDto uploadSingle(@RequestParam("files") MultipartFile file, @RequestHeader(value="accessToken") String accessToken,

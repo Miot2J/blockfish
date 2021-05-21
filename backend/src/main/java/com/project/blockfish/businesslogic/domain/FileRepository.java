@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // JPA에선 단순히 인터페이스 생성 후 JpaRepository 를 상속하면 기본적인 crud 생성
 // 상속시 파라미터로 <엔티티클래스,Pk타입>을 지정
 public interface FileRepository extends JpaRepository<File,Long> {
-    File finByName(String fileName);
+//    File finByName(String fileName);
 }
 
