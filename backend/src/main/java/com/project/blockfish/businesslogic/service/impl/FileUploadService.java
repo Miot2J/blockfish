@@ -1,7 +1,7 @@
 package com.project.blockfish.businesslogic.service.impl;
 
-import com.project.blockfish.businesslogic.domain.File;
-import com.project.blockfish.businesslogic.domain.FileRepository;
+import com.project.blockfish.businesslogic.domain.FileInformation;
+import com.project.blockfish.businesslogic.domain.FileInformationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +17,9 @@ public class FileUploadService {
     // 서버의 경로 지정
     private static final String SAVE_PATH = "/Users/minho/Downloads";
     private static final String PREFIX_URL = "/Users/minho/Downloads";
-    private FileRepository fileRepository;
+    private FileInformationRepository fileRepository;
 
-    public void saveFileToDB(File file) {
+    public void saveFileToDB(FileInformation file) {
         System.out.println("file = " + file);
         fileRepository.save(file);
     }

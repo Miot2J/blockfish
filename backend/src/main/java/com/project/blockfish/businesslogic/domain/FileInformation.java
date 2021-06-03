@@ -52,7 +52,7 @@ public class FileInformation {
     private Boolean fileLock = false;
 
     @Builder
-    public FileInformation(String name, String imageAddress, String fileAddress, String info, String osType, Integer downCount, String blockChainAddress, Integer starRank, LocalDateTime createAt) {
+    public FileInformation(String name, String imageAddress, String fileAddress, String info, String osType, int downCount, String blockChainAddress, int starRank, LocalDateTime createAt) {
         this.name = name;
         this.imageAddress = imageAddress;
         this.fileAddress = fileAddress;

@@ -6,18 +6,19 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FileRepositoryTest {
 
         @Autowired
-        FileRepository fileRepository;
+        FileInformationRepository fileRepository;
 
         @After
         public void cleanup() {
@@ -25,6 +26,7 @@ public class FileRepositoryTest {
         }
 
         @Test
+        @Transactional
         public void 파일저장_불러오기() {
             //given
             String name = "테스트 파일";
@@ -36,31 +38,14 @@ public class FileRepositoryTest {
             String blockChainAddress = "Axabcx3ctest";
             int starRank = 5;
             LocalDateTime createAt = LocalDateTime.MIN;
-            LocalDateTime updateAt = LocalDateTime.MIN;
-            boolean fileLock = false;
 
-            Files file = new Files(name,imageAddress,fileAddress,info,osType,downCount,blockChainAddress,starRank,createAt,updateAt,fileLock);
-            fileRepository.save(new Files(name,imageAddress,fileAddress,info,osType,downCount,blockChainAddress,starRank,createAt,updateAt,fileLock));
-
-/*            fileRepository.save(File.builder()
-                    .name(name)
-                    .imageAddress(imageAddress)
-                    .fileAddress(fileAddress)
-                    .info(info)
-                    .osType(osType)
-                    .downCount(downCount)
-                    .blockChainAddress(blockChainAddress)
-                    .starRank(starRank)
-                    .createAt(createAt)
-                    .updateAt(updateAt)
-                    .fileLock(fileLock));*/
-
-//            File newFile = fileRepository.save(file);
+            FileInformation file = new FileInformation(name,imageAddress,fileAddress,info,osType,downCount,blockChainAddress,starRank,createAt);
+            fileRepository.save(file);
 
             //when
-            List<Files> fileList = fileRepository.findAll();
+            List<FileInformation> fileList = fileRepository.findAll();
             //then
-            Files file1 = fileList.get(0);
+            FileInformation file1 = fileList.get(0);
             assertThat(file1.getName()).isEqualTo(name);
 //            assertThat(newFile.getName()).isEqualTo(name);
         }
