@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useInput from '../../hooks/useInput';
+import useInputPage from '../../hooks/useInputPage';
 import { GridLayoutWrapper, RightLayout } from '../../styles/Download';
 import { isEmpty } from '../../utils/utils';
 import GridCardTemplate from '../cards/GridCardTemplate';
@@ -12,7 +12,7 @@ import SortingBar from './SortingBar';
 const DownloadRight = () => {
   const [fileList, setFileList] = useState([]);
   const [viewState, setViewState] = useState(false);
-  const [page, onhandleChangePage] = useInput(1);
+  const [page, onhandleChangePage] = useInputPage(1);
   const onToggleView = (s) => {
     if (s) {
       setViewState(true);

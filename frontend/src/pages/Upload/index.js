@@ -12,7 +12,7 @@ import {
   UploadInput,
   UploadBottomWrapper,
 } from '../../styles/MyPage';
-import useTextinput from '../../hooks/useTextinput';
+import useInput from '../../hooks/useInput';
 import { useStyles } from '../../styles/materialsStyle';
 import SelectDefault from '../../components/ui/SelectDefault';
 import CheckboxWithLabel from '../../components/ui/CheckboxWithLabel';
@@ -21,7 +21,7 @@ import QuillEditor from '../../components/editor/QuillEditor';
 const Upload = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [filename, onChangeFilename] = useTextinput('');
+  const [filename, onChangeFilename] = useInput('');
   const [checked, setChecked] = useState({
     window: false,
     mac: false,

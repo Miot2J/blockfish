@@ -1,8 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useSpring, animated } from 'react-spring';
-import { SearchModalContainer, SearchModalWrapper } from '../../styles/Modal';
-
+import {
+  SearchBtnWrapper,
+  SearchInputWrapper,
+  SearchMainWrapper,
+  SearchModalContainer,
+  SearchModalHeader,
+  SearchModalInput,
+  SearchModalWrapper,
+} from '../../styles/Modal';
+import { ReactComponent as CancelSvg } from '../../assets/cancel.svg';
+import { ReactComponent as SearchSvg } from '../../assets/search-black.svg';
+import { ReactComponent as RemoveSvg } from '../../assets/remove.svg';
+import useInput from '../../hooks/useInput';
 // const useStyles = makeStyles((theme) => ({
 //   modal: {
 //     display: 'flex',
@@ -18,7 +28,7 @@ import { SearchModalContainer, SearchModalWrapper } from '../../styles/Modal';
 // }));
 
 const SearchModal = () => {
-  const modalState = useSelector((state) => state.modal);
+  const [search, onChangeSearch] = useInput('');
   const animProps = useSpring({
     config: { duration: 300 },
 
@@ -26,14 +36,33 @@ const SearchModal = () => {
     to: { marginTop: '0px' },
   });
 
-  console.log('modalState', modalState);
+  console.log('search', search);
 
   return (
     <animated.div style={animProps}>
       <SearchModalContainer>
         <SearchModalWrapper>
-          <h2 id="spring-modal-title">Spring modal</h2>
-          <p id="spring-modal-description">react-spring animates me.</p>
+          <SearchModalHeader>
+            <SearchBtnWrapper>
+              <CancelSvg width="35" height="35" fill="#282828" />
+            </SearchBtnWrapper>
+          </SearchModalHeader>
+
+          <SearchMainWrapper>
+            <SearchSvg width="30" height="30" fill="#ececec" style={{ paddingLeft: 15 }} />
+
+            <SearchInputWrapper>
+              <SearchModalInput
+                type="text"
+                placeholder="검색할 내용을 입력해주세요."
+                value={search}
+                onChange={onChangeSearch}
+              />
+              <SearchBtnWrapper>
+                <RemoveSvg width="15" height="15" fill="gray" />
+              </SearchBtnWrapper>
+            </SearchInputWrapper>
+          </SearchMainWrapper>
         </SearchModalWrapper>
       </SearchModalContainer>
     </animated.div>

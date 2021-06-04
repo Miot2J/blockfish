@@ -3,18 +3,17 @@ import TextDefault from '../../components/ui/TextDefault';
 import { Button } from '@material-ui/core';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { UserInfoFieldWrapper, UserInfoBottomWrapper, UserInfoInput } from '../../styles/MyPage';
-import useTextinput from '../../hooks/useTextinput';
 import { useStyles } from '../../styles/materialsStyle';
 import MyPageLayout from '../../layouts/MyPageLayout';
 import { regExpPwd } from '../../utils/utils';
+import useInput from '../../hooks/useInput';
 
 const UserInfo = () => {
   const classes = useStyles();
-  const [id, handleId] = useTextinput('');
-  const [name, handleName] = useTextinput('');
-  // const [pwd, handlePwd] = useTextinput('');
+  const [id, handleId] = useInput('');
+  const [name, handleName] = useInput('');
   const [pwd, setPwd] = useState('');
-  const [pwdCheck, handlePwdCheck] = useTextinput('');
+  const [pwdCheck, handlePwdCheck] = useInput('');
   const [pwdState, setPwdState] = useState(false);
 
   const onChangePwd = (e) => {

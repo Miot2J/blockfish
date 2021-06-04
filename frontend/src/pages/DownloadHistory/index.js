@@ -4,7 +4,7 @@ import GridCardTemplate from '../../components/cards/GridCardTemplate';
 import ListCardTemplate from '../../components/cards/ListCardTemplate';
 import ListGubunBar from '../../components/download/ListGubunBar';
 import PagingContainer from '../../components/pagination/PagingContainer';
-import useInput from '../../hooks/useInput';
+import useInputPage from '../../hooks/useInputPage';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import MyPageLayout from '../../layouts/MyPageLayout';
 import { getListStart } from '../../modules/actions/list';
@@ -14,7 +14,7 @@ import { isEmpty } from '../../utils/utils';
 const DownloadHistory = () => {
   const [fileList, setFileList] = useState([]);
   const [viewState, setViewState] = useState(false);
-  const [page, onhandleChangePage] = useInput(1);
+  const [page, onhandleChangePage] = useInputPage(1);
   const { list } = useSelector((state) => ({
     list: state.fetchData.list,
   }));

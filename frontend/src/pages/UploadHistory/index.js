@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CheckedListCardTemplate from '../../components/cards/CheckedListCardTemplate';
 import PagingContainer from '../../components/pagination/PagingContainer';
 import CheckboxDefault from '../../components/ui/CheckboxDefault';
-import useInput from '../../hooks/useInput';
+import useInputPage from '../../hooks/useInputPage';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import MyPageLayout from '../../layouts/MyPageLayout';
 import { isEmpty } from '../../utils/utils';
@@ -14,7 +14,7 @@ const UploadHistory = () => {
   const classes = useStyles();
   const history = useHistory();
   const [fileList, setFileList] = useState([]);
-  const [page, onhandleChangePage] = useInput(1);
+  const [page, onhandleChangePage] = useInputPage(1);
   const [wholeChecked, setWholeChecked] = useState(false);
 
   const onChangeWholeChecked = () => {
