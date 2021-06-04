@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   NavMainLi,
@@ -20,18 +20,14 @@ import { openModal } from '../../modules/actions/modal';
 
 const Nav = () => {
   const { me } = useSelector((state) => state.user);
-  const [showSearch, setShowSearch] = useState(false);
   const dispatch = useDispatch();
   const handleOpen = () => {
-    setShowSearch(true);
     dispatch(openModal('SEARCH_MODAL', {}));
   };
-  const handleClose = () => {
-    setShowSearch(false);
-  };
+
   return (
     <nav>
-      <showSearch showSearch={showSearch} handleClose={handleClose} />
+      {/* <showSearch showSearch={showSearch} handleClose={handleClose} /> */}
       <NavContainer>
         <NavTopBar>
           <NavTopBarUl>

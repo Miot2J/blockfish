@@ -13,19 +13,8 @@ import { ReactComponent as CancelSvg } from '../../assets/cancel.svg';
 import { ReactComponent as SearchSvg } from '../../assets/search-black.svg';
 import { ReactComponent as RemoveSvg } from '../../assets/remove.svg';
 import useInput from '../../hooks/useInput';
-// const useStyles = makeStyles((theme) => ({
-//   modal: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   paper: {
-//     backgroundColor: theme.palette.background.paper,
-//     border: '2px solid #000',
-//     boxShadow: theme.shadows[5],
-//     padding: theme.spacing(2, 4, 3),
-//   },
-// }));
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../../modules/actions/modal';
 
 const SearchModal = () => {
   const [search, onChangeSearch] = useInput('');
@@ -35,8 +24,12 @@ const SearchModal = () => {
     from: { marginTop: '-300px', transition: '0.3s ease-out' },
     to: { marginTop: '0px' },
   });
+  const dispatch = useDispatch();
 
-  console.log('search', search);
+  const onClickClose = () => {
+    console.log('onClickClose');
+    dispatch(closeModal());
+  };
 
   return (
     <animated.div style={animProps}>
@@ -44,7 +37,7 @@ const SearchModal = () => {
         <SearchModalWrapper>
           <SearchModalHeader>
             <SearchBtnWrapper>
-              <CancelSvg width="35" height="35" fill="#282828" />
+              <CancelSvg width="35" height="35" fill="#282828" onClick={onClickClose} />
             </SearchBtnWrapper>
           </SearchModalHeader>
 

@@ -12,7 +12,7 @@ export const NavTopBarUl = styled.ul`
   justify-content: flex-end;
   align-items: center;
   color: #eeeeee;
-  padding: 0 40px;
+  padding: 0 80px;
 `;
 export const NavTopBarLi = styled.li`
   height: 100%;
@@ -43,7 +43,7 @@ export const NavMainContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 80px;
   background-color: #f8f5f3;
 `;
 export const NavMainWrapper = styled.div`
@@ -92,15 +92,43 @@ export const FooterContainer = styled.footer`
   color: white;
 `;
 export const FooterWrapper = styled.div`
-  padding: 25px 15px;
+  padding: 25px 80px;
+`;
+export const FooterMainWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const FooterBottomItems = styled.div`
+  margin-top: 12px;
 `;
 export const FooterItems = styled.ul`
   display: flex;
   align-items: center;
 `;
 export const FooterItem = styled.li`
-  color: white;
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+`;
+export const FooterItemText = styled.div`
+  height: 100%;
+  cursor: pointer;
+  line-height: 20px;
+  transition: 0.25s ease-out;
+  &:hover {
+    a {
+      opacity: 0.7;
+    }
+    div {
+      width: 100%;
+    }
+  }
+`;
+export const FooterItemUnderLine = styled.div`
+  height: 2px;
+  width: 0;
+  background-color: #fff;
+  transition: 0.2s ease-in-out;
 `;
 export const FooterBottom = styled.div`
   width: 100%;
