@@ -3,3 +3,10 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import React from 'react';
+
+Enzyme.configure({ adapter: new Adapter() });
+
+mount(<div>asd</div>);
