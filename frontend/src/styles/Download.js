@@ -2,12 +2,15 @@ import styled from '@emotion/styled';
 import { Button } from '@material-ui/core';
 
 export const DownloadContainer = styled.div`
-  display: grid;
-  grid-template-columns: 250px auto;
-  grid-column-gap: 40px;
-  // max-width: 1200px;
-  // margin: 0 auto;
-  // padding: 42px 20px 100px 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  @media screen and (max-width: 1440px) {
+    max-width: 1080px;
+  }
+  @media screen and (max-width: 1080px) {
+    max-width: 768px;
+  }
 `;
 export const LeftLayout = styled.div`
   max-width: 250px;
@@ -74,8 +77,21 @@ export const SliderContainer = styled.div`
 `;
 export const GridLayoutWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  grid-template-columns: repeat(3, 350px);
+  grid-gap: 30px;
+  justify-content: center;
+  @media screen and (max-width: 1440px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  @media screen and (max-width: 1080px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+  }
+  @media screen and (max-width: 700px) {
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+  }
 `;
 export const ListGubunBarWrapper = styled.div`
   width: 100%;
@@ -83,4 +99,22 @@ export const ListGubunBarWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin-top: 10px;
+`;
+export const DownloadCardContainer = styled.div`
+  width: 100%;
+`;
+export const DownloadCardImgWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 257px;
+  margin-bottom: 30px;
+`;
+export const DownloadCardImg = styled.img`
+  max-width: 350px;
+  height: 100%;
+  border-radius: 7px;
+`;
+export const DownloadTagWrapper = styled.div`
+  margin-bottom: 5px;
 `;

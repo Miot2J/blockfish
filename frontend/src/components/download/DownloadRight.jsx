@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import useInputPage from '../../hooks/useInputPage';
 import { GridLayoutWrapper, RightLayout } from '../../styles/Download';
 import { isEmpty } from '../../utils/utils';
-import GridCardTemplate from '../cards/GridCardTemplate';
-import ListCardTemplate from '../cards/ListCardTemplate';
+import DownloadCard from '../cards/DownloadCard';
+// import ListCardTemplate from '../cards/ListCardTemplate';
 import PagingContainer from '../pagination/PagingContainer';
 import SlickSlider from '../slider/SlickSlider';
 import TextDefault from '../ui/TextDefault';
@@ -11,26 +11,28 @@ import SortingBar from './SortingBar';
 
 const DownloadRight = () => {
   const [fileList, setFileList] = useState([]);
-  const [viewState, setViewState] = useState(false);
+  // const [viewState, setViewState] = useState(false);
   const [page, onhandleChangePage] = useInputPage(1);
-  const onToggleView = (s) => {
-    if (s) {
-      setViewState(true);
-    } else {
-      setViewState(false);
-    }
-  };
+  // const onToggleView = (s) => {
+  //   if (s) {
+  //     setViewState(true);
+  //   } else {
+  //     setViewState(false);
+  //   }
+  // };
 
   useEffect(() => {
-    setViewState(false);
+    // setViewState(false);
     setFileList([
       {
         id: 1,
         title: 'Zoom Cloud Meetings',
-        descption: '수많은 기능을 이용해 영상 통화와 미팅을 해보세요',
+        descption:
+          'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.',
         rating: 4.5,
         commentNum: 40,
-        imgSrc: '/images/card/empty.png',
+        imgSrc:
+          'https://preview.colorlib.com/theme/magdesign/images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp',
       },
       {
         id: 2,
@@ -38,7 +40,8 @@ const DownloadRight = () => {
         descption: '메롱',
         rating: 3.5,
         commentNum: 30,
-        imgSrc: '/images/card/empty.png',
+        imgSrc:
+          'https://preview.colorlib.com/theme/magdesign/images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp',
       },
       {
         id: 3,
@@ -46,7 +49,8 @@ const DownloadRight = () => {
         descption: '메롱',
         rating: 2.5,
         commentNum: 30,
-        imgSrc: '/images/card/empty.png',
+        imgSrc:
+          'https://preview.colorlib.com/theme/magdesign/images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp',
       },
       {
         id: 4,
@@ -107,9 +111,10 @@ const DownloadRight = () => {
 
       <SlickSlider />
 
-      <SortingBar onToggleView={onToggleView} />
+      <SortingBar />
+      {/* <SortingBar onToggleView={onToggleView} /> */}
       <div style={{ marginTop: 20 }}>
-        {!isEmpty(fileList) &&
+        {/* {!isEmpty(fileList) &&
           (viewState ? (
             fileList.map((data) => <ListCardTemplate key={data.id} content={data} />)
           ) : (
@@ -118,7 +123,14 @@ const DownloadRight = () => {
                 <GridCardTemplate key={data.id} content={data} />
               ))}
             </GridLayoutWrapper>
-          ))}
+          ))} */}
+        {!isEmpty(fileList) && (
+          <GridLayoutWrapper>
+            {fileList.map((data) => (
+              <DownloadCard key={data.id} content={data} />
+            ))}
+          </GridLayoutWrapper>
+        )}
       </div>
 
       {/* 페이징 - 시작 */}
