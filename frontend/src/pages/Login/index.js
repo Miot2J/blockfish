@@ -18,7 +18,7 @@ import { LoginContainer, LoginWrapper } from '../../styles/Login';
 
 import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../modules/actions/user';
-import useTextInput from '../../hooks/useTextinput';
+import useInput from '../../hooks/useInput';
 /**
  * @function Login
  * @author Seorim
@@ -26,13 +26,11 @@ import useTextInput from '../../hooks/useTextinput';
  */
 const Login = () => {
   const dispatch = useDispatch();
-  const [email, onChangeEmail] = useTextInput('');
-  const [password, onChangePassword] = useTextInput('');
+  const [email, onChangeEmail] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    console.log('email', email);
-    console.log('password', password);
     dispatch(loginRequestAction({ email, password }));
   };
 
@@ -86,7 +84,7 @@ const Login = () => {
             로그인
           </Button>
           <Button variant="outlined" color="primary">
-            회원가입
+            <Link to="/join">회원가입</Link>
           </Button>
         </LoginWrapper>
       </LoginContainer>

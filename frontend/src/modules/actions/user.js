@@ -5,6 +5,9 @@ export const initState = {
   logOutLoading: false,
   logOutDone: false,
   logOutError: null,
+  signUpLoading: false,
+  signUpDone: false,
+  signUpError: null,
   me: null,
   loginData: {},
 };
@@ -17,6 +20,10 @@ export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
+export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
 // 액션 함수 정의
 export const loginRequestAction = (data) => ({
   type: LOG_IN_REQUEST,
@@ -25,7 +32,10 @@ export const loginRequestAction = (data) => ({
 export const logoutRequestAction = () => ({
   type: LOG_OUT_REQUEST,
 });
-
+export const signupRequestAction = (data) => ({
+  type: SIGN_UP_REQUEST,
+  data,
+});
 /**
  * @function user
  * @description user Reducer
@@ -34,7 +44,26 @@ export const logoutRequestAction = () => ({
 const user = (state = initState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST:
-      return action.data;
+      return {
+        ...state,
+        logInLoading: true,
+        logInDone: false,
+        logInError: null,
+      };
+    case LOG_OUT_REQUEST:
+      return {
+        ...state,
+        logOutLoading: true,
+        logOutDone: false,
+        logOutError: null,
+      };
+    case SIGN_UP_REQUEST:
+      return {
+        ...state,
+        signUpLoading: true,
+        signUpDone: false,
+        signUpError: null,
+      };
     default:
       return state;
   }
