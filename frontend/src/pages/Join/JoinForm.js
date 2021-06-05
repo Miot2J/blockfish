@@ -21,8 +21,8 @@ const JoinForm = () => {
 
   const onChangePwd = (e) => {
     debounce(() => {
-      if (e.target.value.length > 20) {
-        alert('길이가 너무 깁니다.');
+      if (e.target.value.length < 8 || e.target.value.length > 20) {
+        alert('영문, 숫자, 특수문자 조합의 8~20자리 입니다.');
         return;
       }
       if (regExpPwd(e.target.value)) {
@@ -32,7 +32,8 @@ const JoinForm = () => {
     setPwd(e.target.value);
   };
   console.log('pwdState', pwdState);
-  const onSubmitForm = (e) => {
+  const onSignup = (e) => {
+    alert('dd');
     e.preventDefault();
     dispatch(signupRequestAction({ email, name, pwd }));
   };
@@ -49,7 +50,7 @@ const JoinForm = () => {
           </TextDefault>
         </span>
         <div>
-          <form style={{ marginTop: 40 }} noValidate autoComplete="off" onSubmit={onSubmitForm}>
+          <form style={{ marginTop: 40 }} noValidate autoComplete="off" onSubmit={onSignup}>
             <UserInfoFieldWrapper>
               <span style={{ width: 200 }}>
                 <TextDefault size="16px" color="#000000">
@@ -95,11 +96,6 @@ const JoinForm = () => {
                 className={`${classes.userInfoInput}`}
                 onChange={onChangePwd}
               />
-              <span style={{ marginLeft: 15 }}>
-                <TextDefault size="14px" color="#808080">
-                  {setPwdState ? '적합합니다.' : '영문, 숫자, 특수문자 조합의 8~20자리 입니다.'}
-                </TextDefault>
-              </span>
             </UserInfoFieldWrapper>
 
             <UserInfoFieldWrapper>
@@ -123,14 +119,13 @@ const JoinForm = () => {
                 </TextDefault>
               </span>
             </UserInfoFieldWrapper>
+            <UserInfoBottomWrapper>
+              <Button type="submit" className={`${classes.joinFormBtn}`}>
+                가입하기
+              </Button>
+            </UserInfoBottomWrapper>
           </form>
         </div>
-
-        <UserInfoBottomWrapper>
-          <Button type="submit" className={`${classes.joinFormBtn}`}>
-            가입하기
-          </Button>
-        </UserInfoBottomWrapper>
       </JoinContainer>
     </DefaultLayout>
   );

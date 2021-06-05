@@ -64,6 +64,20 @@ const user = (state = initState, action) => {
         signUpDone: false,
         signUpError: null,
       };
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpDone: true,
+        signUpError: null,
+      };
+    case SIGN_UP_FAILURE:
+      return {
+        ...state,
+        signUpLoading: false,
+        signUpDone: false,
+        signUpError: action.error,
+      };
     default:
       return state;
   }

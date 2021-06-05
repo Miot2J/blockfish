@@ -1,5 +1,12 @@
-import { fork, delay, put, takeLatest, call } from 'redux-saga/effects';
-import { LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE } from '../actions/user';
+import { fork, delay, put, takeLatest, call, all } from 'redux-saga/effects';
+import {
+  LOG_IN_REQUEST,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
+  SIGN_UP_FAILURE,
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+} from '../actions/user';
 import axios from 'axios';
 
 function logInAPI(data) {
@@ -25,11 +32,36 @@ function* logIn(action) {
   }
 }
 
+function signUpAPI(data) {
+  return axios.post('/user/signup', data);
+}
+
+function* signUp(action) {
+  try {
+    const result = yield call(signUpAPI, action.data);
+    yield delay(1000);
+    yield put({
+      type: SIGN_UP_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SIGN_UP_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
 
+function* watchSignUp() {
+  yield takeLatest(SIGN_UP_REQUEST, signUp);
+}
+
 // API 호출 SAGA
 export function* fetchUserSaga() {
-  yield fork(watchLogIn);
+  yield all([fork(watchLogIn), fork(watchSignUp)]);
 }
