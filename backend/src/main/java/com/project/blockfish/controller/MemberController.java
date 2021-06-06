@@ -91,7 +91,7 @@ public class MemberController {
             res.addCookie(accessToken); //access, refresh token 쿠키에 담기
             res.addCookie(refreshToken);
             System.out.println("redisUtil.getData(refreshJwt); = " + redisUtil.getData(refreshJwt));
-            return new Response("success", "로그인에 성공했습니다.", token);
+            return new Response("success", "로그인에 성공했습니다.", member);
         } catch (Exception e) {
             return new Response("error", "로그인에 실패했습니다.", e.getMessage());
         }
