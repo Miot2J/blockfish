@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   NavMainLi,
   NavContainer,
@@ -19,10 +19,16 @@ import { ReactComponent as SearchSvg } from '../../assets/search-black.svg';
 import { openModal } from '../../modules/actions/modal';
 
 const Nav = () => {
+  const history = useHistory();
   const { me } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const handleOpen = () => {
     dispatch(openModal('SEARCH_MODAL', {}));
+  };
+
+  const onClickUploadBtn = () => {
+    // 로그인 검증 작업 필요
+    history.push('/my-page/upload');
   };
 
   return (
@@ -89,13 +95,11 @@ const Nav = () => {
                   <NavMainUnderLine />
                 </Link>
               </NavMainLi>
-              <NavMainLi>
-                <Link to="/blockfish/download">
-                  <TextDefault size="18px" color="#282828" weight="700" lineHeight="35px">
-                    업로드
-                  </TextDefault>
-                  <NavMainUnderLine />
-                </Link>
+              <NavMainLi onClick={onClickUploadBtn}>
+                <TextDefault size="18px" color="#282828" weight="700" lineHeight="35px">
+                  업로드
+                </TextDefault>
+                <NavMainUnderLine />
               </NavMainLi>
             </NavMainUl>
           </NavMainWrapper>
