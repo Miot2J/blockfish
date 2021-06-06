@@ -116,5 +116,8 @@ export const DownloadCardImg = styled.img`
   border-radius: 7px;
 `;
 export const DownloadTagWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 5px;
 `;

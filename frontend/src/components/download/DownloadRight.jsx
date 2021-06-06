@@ -33,6 +33,8 @@ const DownloadRight = () => {
         commentNum: 40,
         imgSrc:
           'https://preview.colorlib.com/theme/magdesign/images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp',
+        category: '유틸리티',
+        os: 'android',
       },
       {
         id: 2,
@@ -42,6 +44,8 @@ const DownloadRight = () => {
         commentNum: 30,
         imgSrc:
           'https://preview.colorlib.com/theme/magdesign/images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp',
+        category: '유틸리티',
+        os: 'ios',
       },
       {
         id: 3,
@@ -51,6 +55,8 @@ const DownloadRight = () => {
         commentNum: 30,
         imgSrc:
           'https://preview.colorlib.com/theme/magdesign/images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp',
+        category: '유틸리티',
+        os: 'mac',
       },
       {
         id: 4,
@@ -59,6 +65,8 @@ const DownloadRight = () => {
         rating: 4.5,
         commentNum: 40,
         imgSrc: '/images/card/empty.png',
+        category: '유틸리티',
+        os: 'window',
       },
       {
         id: 5,
@@ -67,6 +75,8 @@ const DownloadRight = () => {
         rating: 3.5,
         commentNum: 30,
         imgSrc: '/images/card/empty.png',
+        category: '유틸리티',
+        os: 'android',
       },
       {
         id: 6,
@@ -75,6 +85,8 @@ const DownloadRight = () => {
         rating: 2.5,
         commentNum: 30,
         imgSrc: '/images/card/empty.png',
+        category: '유틸리티',
+        os: 'ios',
       },
       {
         id: 7,
@@ -83,6 +95,8 @@ const DownloadRight = () => {
         rating: 4.5,
         commentNum: 40,
         imgSrc: '/images/card/empty.png',
+        category: '유틸리티',
+        os: 'mac',
       },
       {
         id: 8,
@@ -91,6 +105,8 @@ const DownloadRight = () => {
         rating: 3.5,
         commentNum: 30,
         imgSrc: '/images/card/empty.png',
+        category: '유틸리티',
+        os: 'window',
       },
       {
         id: 9,
@@ -99,6 +115,8 @@ const DownloadRight = () => {
         rating: 2.5,
         commentNum: 30,
         imgSrc: '/images/card/empty.png',
+        category: '유틸리티',
+        os: 'android',
       },
     ]);
   }, []);
