@@ -4,12 +4,14 @@ import { fetchUserSaga } from '../sagas/user';
 import user from '../actions/user';
 import list from '../actions/list';
 import modal from './modal';
+import uploadImage from './uploadImage';
 import { fetchSaga } from '../sagas/saga';
 
 const rootReducer = combineReducers({
   list,
   user,
   modal,
+  uploadImage,
 });
 
 export function* rootSaga() {

@@ -9,9 +9,8 @@ export const SET_LIST = 'SET_LIST';
 export const RESET_LIST = 'RESET_LIST';
 
 // 액션 함수 정의
-export const getListStart = (header) => ({
+export const getListStart = () => ({
   type: GET_LIST,
-  payload: header,
 });
 export const getListSuccess = (data) => ({
   type: GET_LIST_SUCCESS,

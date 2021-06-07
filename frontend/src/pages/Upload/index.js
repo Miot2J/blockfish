@@ -17,11 +17,17 @@ import { useStyles } from '../../styles/materialsStyle';
 import SelectDefault from '../../components/ui/SelectDefault';
 import CheckboxWithLabel from '../../components/ui/CheckboxWithLabel';
 import QuillEditor from '../../components/editor/QuillEditor';
+import { isEmpty } from '../../utils/utils';
+import { useDispatch } from 'react-redux';
+import { reqImage } from '../../modules/actions/uploadImage';
 
 const Upload = () => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const [filename, onChangeFilename] = useInput('');
+  const [fileImage, onChangefileImage] = useInput('');
   const [checked, setChecked] = useState({
     window: false,
     mac: false,
@@ -57,6 +63,16 @@ const Upload = () => {
   };
   const onChangeSmallMenu = (e) => {
     setSmallMenu(e.target.value);
+  };
+
+  const onClickUpload = () => {
+    if (isEmpty(fileImage)) {
+      alert('파일 이미지파일을 첨부해주세요.');
+    }
+    const formData = new FormData();
+    formData.append('image', fileImage);
+
+    dispatch(reqImage(formData));
   };
 
   return (
@@ -113,7 +129,7 @@ const Upload = () => {
               <TextDefault size="16px" color="#000" width="150px">
                 파일 이미지
               </TextDefault>
-              <UploadInput type="text" value={filename} onChange={onChangeFilename} />
+              <UploadInput type="file" value={fileImage} onChange={onChangefileImage} />
               <Button className={`${classes.fileSelctionBtn}`} style={{ marginLeft: '10px' }}>
                 이미지선택
               </Button>
@@ -198,7 +214,9 @@ const Upload = () => {
 
           {/* 하단 버튼 Wrapper - 시작 */}
           <UploadBottomWrapper>
-            <Button className={`${classes.userInfoUpdateBtn}`}>업로드</Button>
+            <Button className={`${classes.userInfoUpdateBtn}`} onClick={onClickUpload}>
+              업로드
+            </Button>
             <Button
               className={`${classes.userInfoCancelBtn}`}
               onClick={() => {
