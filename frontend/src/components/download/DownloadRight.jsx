@@ -7,6 +7,7 @@ import DownloadCard from '../cards/DownloadCard';
 import PagingContainer from '../pagination/PagingContainer';
 import SlickSlider from '../slider/SlickSlider';
 import TextDefault from '../ui/TextDefault';
+import DownloadControll from './DownloadControll';
 import SortingBar from './SortingBar';
 
 const DownloadRight = () => {
@@ -129,7 +130,12 @@ const DownloadRight = () => {
 
       <SlickSlider />
 
+      <div style={{ marginTop: 20 }}>
+        <DownloadControll />
+      </div>
+
       <SortingBar />
+
       {/* <SortingBar onToggleView={onToggleView} /> */}
       <div style={{ marginTop: 20 }}>
         {/* {!isEmpty(fileList) &&
@@ -142,6 +148,7 @@ const DownloadRight = () => {
               ))}
             </GridLayoutWrapper>
           ))} */}
+
         {!isEmpty(fileList) && (
           <GridLayoutWrapper>
             {fileList.map((data) => (
