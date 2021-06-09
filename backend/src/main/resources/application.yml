@@ -16,7 +16,7 @@ spring:
   cache:
     type: redis
   redis:
-    host: 127.0.0.1
+    host: 127.0.0.1  #원격서버 배포시 원격 서버 아이피로 변경 후, 방화벽 열어주기(ec2 사용시 보안그룹에서 포트 열어주기), redis-cli에서 접속 여부 확인 후 배포
     port: 6379
 
   mail:
