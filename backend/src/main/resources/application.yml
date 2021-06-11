@@ -40,3 +40,10 @@ spring:
   # JWT Secret key
   jwt:
     secret: kimdonggeunkimdonggeunkimdonggeunkimdonggeunkimdonggeunkimdonggeunkimdonggeunkimdonggeun
+
+logging:
+  level:
+    root: INFO
+    com.project.blockfish: DEBUG
+  file:
+    path: logs
