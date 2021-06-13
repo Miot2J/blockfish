@@ -1,6 +1,7 @@
 package com.project.blockfish.businesslogic.service;
 
 import com.jcraft.jsch.*;
+import com.project.blockfish.businesslogic.util.Converter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -73,10 +74,10 @@ public class SFTPSender {
 
             // 입력 파일을 가져온다.
             InputStream fileStream = file.getInputStream();
-//            FileInputStream fileInputStream = new FileInputStream(file);
 
             // 파일을 업로드한다.
             System.out.println(file.getOriginalFilename()+"가 업로드 됩니다.");
+
             sftpChannel.put(fileStream, file.getOriginalFilename());
 
             fileStream.close();
@@ -89,63 +90,15 @@ public class SFTPSender {
     }
 
     public File download(String fileName) throws JSchException {
-        byte[] buffer = new byte[1024];
-        BufferedInputStream bis;
         sftpConnect();
-
-        // 6. sftp 채널을 연다.
-        channel = session.openChannel("sftp");
-        // 7. 채널에 연결한다.
-        channel.connect();
-        // 8. 채널을 SFTP용 채널 객체로 캐스팅한다.
-        sftpChannel = (ChannelSftp) channel;
-
-        try {
-            // Change to output directory
-//            String cdDir = fileName.substring(0, fileName.lastIndexOf("/") + 1);
-//            sftpChannel.cd(cdDir);
-            sftpChannel.cd(remoteDirectoryPath);
-
-            File file = new File(remoteDirectoryPath+"/"+fileName);
-
-//            bis = new BufferedInputStream(sftpChannel.get(file.getName()));
-            ////ddnjsdnjdnsdnsdsd
-            System.out.println("file.getName() = " + file.getName());
-            System.out.println("file.getPath() = " + file.getPath());
-            sftpDisconnect();
-            return file;
-            ////
-
-//            File newFile = new File(localDir + "/" + file.getName());
-
-           /* // Download file
-            OutputStream os = new FileOutputStream(newFile);
-            BufferedOutputStream bos = new BufferedOutputStream(os);
-            int readCount;
-            while ((readCount = bis.read(buffer)) > 0) {
-                bos.write(buffer, 0, readCount);
-            }
-            bis.close();
-            bos.close();
-            System.out.println("File downloaded successfully - " + file.getAbsolutePath());*/
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            sftpDisconnect();
-            return null;
-        }
-
-//        sftpDisconnect();
-    }
-
-    public FileInputStream getFileInputStream(String fileName) throws JSchException{
-        sftpConnect();
+        System.out.println("fileName = " + fileName);
 
         channel = session.openChannel("sftp");
         channel.connect();
         sftpChannel = (ChannelSftp) channel;
 
         try {
+            // 경로변경
             sftpChannel.cd(remoteDirectoryPath);
 
             Vector<ChannelSftp.LsEntry> flist = sftpChannel.ls(remoteDirectoryPath);
@@ -153,14 +106,40 @@ public class SFTPSender {
             for(ChannelSftp.LsEntry entry : flist){
                 System.out.println("entry = " + entry);
             }
+            InputStream inputStream = sftpChannel.get(fileName);
 
-            File file = new File(remoteDirectoryPath+fileName);
+            File file = Converter.convertInputStreamToFile(inputStream);
+            System.out.println(file.getName()+"가 다운로드 됩니다.");
 
-            System.out.println("file.getName() = " + file.getName());
-            System.out.println("file.getAbsolutePath() = " + file.getAbsolutePath());
+            sftpDisconnect();
+            return file;
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            sftpDisconnect();
+            return null;
+        }
+    }
+
+    public FileInputStream getFileInputStream(String fileName) throws JSchException{
+        sftpConnect();
+
+        System.out.println("fileNameInput = " + fileName);
+        // 채널 열기
+        channel = session.openChannel("sftp");
+        channel.connect();
+        sftpChannel = (ChannelSftp) channel;
+
+        try {
+            // 경로변경
+            sftpChannel.cd(remoteDirectoryPath);
+            //파일 이름으로 스트림 불러오기
+            InputStream inputStream = sftpChannel.get(fileName);
+
+            File file = Converter.convertInputStreamToFile(inputStream);
+
+            sftpDisconnect();
             return new FileInputStream(file);
-            ////
 
         } catch (Exception e) {
             e.printStackTrace();

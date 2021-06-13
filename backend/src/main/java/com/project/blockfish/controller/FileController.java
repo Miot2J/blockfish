@@ -96,20 +96,21 @@ public class FileController {
         System.out.println("multipartToFile(file).getAbsolutePath() = " + multipartToFile(file).getAbsolutePath());
 
         String fileHash = fileService.getHash(sftpSender.getFileInputStream(file.getOriginalFilename()));
-        KlayDto klayDto = klayService.sendHashToKlay(fileHash, "test");
+        System.out.println("업로드 fileHash = " + fileHash);
+//        KlayDto klayDto = klayService.sendHashToKlay(fileHash, "test");
 
 
         FileInformationDto fileInformationDto = new ObjectMapper().readValue(fileInformationString,FileInformationDto.class);
         FileInformation fileInformation = new FileInformation(
-                fileInformationDto.getName(),
+                file.getOriginalFilename(),
                 fileInformationDto.getImageAddress(),
                 UPLOAD_DIRECTORY2,
                 fileInformationDto.getInfo(),
                 fileInformationDto.getOsType(),
                 0,
 //                클레이튼 컨트랙트 생성시 발생하는 가스 비용때문에 임시 주소 입력
-                klayDto.getContractAddress(),
-//                "클레이튼 임시주소",
+//                klayDto.getContractAddress(),
+                "클레이튼 임시주소",
                 0,
                 ldt);
         Response response = new Response();
