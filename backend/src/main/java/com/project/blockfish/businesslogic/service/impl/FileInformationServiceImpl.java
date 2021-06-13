@@ -7,6 +7,7 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -24,11 +25,30 @@ public class FileInformationServiceImpl implements FileInformationService {
     }
 
     @Override
-    public String getHash(String path) throws IOException, NoSuchAlgorithmException {
+    public String getHash(FileInputStream fileInputStream) throws IOException, NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-        FileInputStream fileInputStream = new FileInputStream(path);
+//        FileInputStream fileInputStream = new FileInputStream(file);
         byte[] dataBytes = new byte[1024];
-        Integer nRead = 0;
+        Integer nRead ;
+        while ((nRead = fileInputStream.read(dataBytes)) != -1) {
+            messageDigest.update(dataBytes, 0, nRead);
+        }
+        byte[] mdBytes = messageDigest.digest();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (Integer i = 0; i < mdBytes.length; i++) {
+            stringBuffer.append(Integer.toString((mdBytes[i] & 0xff) + 0x100, 16)).substring(1);
+        }
+        return stringBuffer.toString();
+    }
+
+    //로컬 테스트용 메서드
+    @Override
+    public String getHash2(String path) throws IOException, NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        File file = new File(path);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        byte[] dataBytes = new byte[1024];
+        Integer nRead ;
         while ((nRead = fileInputStream.read(dataBytes)) != -1) {
             messageDigest.update(dataBytes, 0, nRead);
         }

@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class FileController {
     private static final String UPLOAD_DIRECTORY = "http://sonjuhy.iptime.org/home/disk1/blockfish/uploads/";
-    private static final String UPLOAD_DIRECTORY2 = "/websites/ssl/www/blockfish/uploads";
+    private static final String UPLOAD_DIRECTORY2 = "sonjuhy.iptime.org/websites/ssl/www/blockfish/uploads/";
 
     private final FileInformationService fileService;
     private final KlayService klayService;
@@ -55,12 +55,22 @@ public class FileController {
             e.printStackTrace();
         }
         System.out.println("upload test");
+
         String filePath = UPLOAD_DIRECTORY + file.getOriginalFilename();
-        String fileHash = fileService.getHash(filePath);
+
+        //        String fileHash = fileService.getHash(multipartToFile(file));
+        String fileHash = fileService.getHash(sftpSender.getFileInputStream(file.getOriginalFilename()));
         KlayDto klayDto = klayService.sendHashToKlay(fileHash, userId);
 
         return klayDto;
     }
+
+    private File multipartToFile(MultipartFile multipartFile) throws IOException,IllegalStateException {
+        File file = new File(multipartFile.getOriginalFilename());
+        multipartFile.transferTo(file);
+        return file;
+    }
+
     //    디비에서 파일 이름을 아이디로 불러오기
     @GetMapping("/getFile")
     public String getFile(@RequestBody Long fileId) throws NotFoundException {
@@ -69,11 +79,59 @@ public class FileController {
 
         return file.getName();
     }
+
     //    서버에 파일이 업로드 되는지 테스트
     @PostMapping("/uploadTest")
-    public void uploadTest(@RequestParam("files") MultipartFile file) throws JSchException {
-        sftpSender.sftpConnect();
-        sftpSender.upload(file,UPLOAD_DIRECTORY2);
+    public Response uploadTest(@RequestParam("files") MultipartFile file
+            , @RequestParam(value = "FileInformationDto")String  fileInformationString) throws JSchException,IOException,NoSuchAlgorithmException {
+
+        sftpSender.upload(file);
+
+        // LocalDateTime 생성
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime ldt = LocalDateTime.of(now.getYear(),
+                now.getMonth(), now.getDayOfMonth(), now.getHour(),  now.getMinute(), 0);
+        // klayDto생성
+        System.out.println("klay test");
+        System.out.println("multipartToFile(file).getAbsolutePath() = " + multipartToFile(file).getAbsolutePath());
+
+        String fileHash = fileService.getHash(sftpSender.getFileInputStream(file.getOriginalFilename()));
+        KlayDto klayDto = klayService.sendHashToKlay(fileHash, "test");
+
+
+        FileInformationDto fileInformationDto = new ObjectMapper().readValue(fileInformationString,FileInformationDto.class);
+        FileInformation fileInformation = new FileInformation(
+                fileInformationDto.getName(),
+                fileInformationDto.getImageAddress(),
+                UPLOAD_DIRECTORY2,
+                fileInformationDto.getInfo(),
+                fileInformationDto.getOsType(),
+                0,
+//                클레이튼 컨트랙트 생성시 발생하는 가스 비용때문에 임시 주소 입력
+                klayDto.getContractAddress(),
+//                "클레이튼 임시주소",
+                0,
+                ldt);
+        Response response = new Response();
+
+        try{
+            fileService.saveFileInfo(fileInformation);
+            response.setResponse("success");
+            response.setMessage("파일 업로드가 성공적으로 완료했습니다.");
+        } catch(Exception e){
+            response.setResponse("fail");
+            response.setMessage("파일 업로드 중 오류가 발생했습니다.");
+            response.setData(e.toString());
+        }
+
+        System.out.println("파일이 저장된 위치/ 파일명 = " + UPLOAD_DIRECTORY2 + file.getOriginalFilename());
+
+        return response;
+    }
+
+    @PostMapping("/downloadTest")
+    public File downloadTest(@RequestParam("fileName") String fileName) throws  JSchException{
+        return sftpSender.download(fileName);
     }
 
     //    로컬에 파일이 업로드 되는지 테스트
@@ -101,8 +159,8 @@ public class FileController {
                 now.getMonth(), now.getDayOfMonth(), now.getHour(),  now.getMinute(), 0);
         // klayDto생성
         System.out.println("klay test");
-        String fileHash = fileService.getHash(savedPath);
-        KlayDto klayDto = klayService.sendHashToKlay(fileHash, "test");
+        String fileHash = fileService.getHash2(savedPath);
+//        KlayDto klayDto = klayService.sendHashToKlay(fileHash, "test");
 
 
         FileInformationDto fileInformationDto = new ObjectMapper().readValue(fileInformationString,FileInformationDto.class);

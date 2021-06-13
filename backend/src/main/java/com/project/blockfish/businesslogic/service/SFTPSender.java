@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.Vector;
 
 @Component
 @PropertySource("classpath:SftpConnection.properties")
@@ -26,6 +27,9 @@ public class SFTPSender {
 
     @Value("${sftp.password}")
     private String password;
+
+    @Value("${sftp.filePath}")
+    private String remoteDirectoryPath;
 
     @Value("${sftp.port}")
     private int port;
@@ -53,7 +57,7 @@ public class SFTPSender {
         System.out.println(" <--세션 접속 완료");
     }
 
-    public void upload(MultipartFile file, String remoteDirectoryPath) throws JSchException {
+    public void upload(MultipartFile file) throws JSchException {
         // 접속 메서드를 사용해 접속한다.
         sftpConnect();
         // 6. sftp 채널을 연다.
@@ -84,7 +88,7 @@ public class SFTPSender {
         sftpDisconnect();
     }
 
-    public void download(String fileName, String localDir) throws Exception {
+    public File download(String fileName) throws JSchException {
         byte[] buffer = new byte[1024];
         BufferedInputStream bis;
         sftpConnect();
@@ -98,15 +102,23 @@ public class SFTPSender {
 
         try {
             // Change to output directory
-            String cdDir = fileName.substring(0, fileName.lastIndexOf("/") + 1);
-            sftpChannel.cd(cdDir);
+//            String cdDir = fileName.substring(0, fileName.lastIndexOf("/") + 1);
+//            sftpChannel.cd(cdDir);
+            sftpChannel.cd(remoteDirectoryPath);
 
-            File file = new File(fileName);
-            bis = new BufferedInputStream(sftpChannel.get(file.getName()));
+            File file = new File(remoteDirectoryPath+"/"+fileName);
 
-            File newFile = new File(localDir + "/" + file.getName());
+//            bis = new BufferedInputStream(sftpChannel.get(file.getName()));
+            ////ddnjsdnjdnsdnsdsd
+            System.out.println("file.getName() = " + file.getName());
+            System.out.println("file.getPath() = " + file.getPath());
+            sftpDisconnect();
+            return file;
+            ////
 
-            // Download file
+//            File newFile = new File(localDir + "/" + file.getName());
+
+           /* // Download file
             OutputStream os = new FileOutputStream(newFile);
             BufferedOutputStream bos = new BufferedOutputStream(os);
             int readCount;
@@ -115,12 +127,46 @@ public class SFTPSender {
             }
             bis.close();
             bos.close();
-            System.out.println("File downloaded successfully - " + file.getAbsolutePath());
+            System.out.println("File downloaded successfully - " + file.getAbsolutePath());*/
 
         } catch (Exception e) {
             e.printStackTrace();
+            sftpDisconnect();
+            return null;
         }
-        sftpDisconnect();
+
+//        sftpDisconnect();
+    }
+
+    public FileInputStream getFileInputStream(String fileName) throws JSchException{
+        sftpConnect();
+
+        channel = session.openChannel("sftp");
+        channel.connect();
+        sftpChannel = (ChannelSftp) channel;
+
+        try {
+            sftpChannel.cd(remoteDirectoryPath);
+
+            Vector<ChannelSftp.LsEntry> flist = sftpChannel.ls(remoteDirectoryPath);
+
+            for(ChannelSftp.LsEntry entry : flist){
+                System.out.println("entry = " + entry);
+            }
+
+            File file = new File(remoteDirectoryPath+fileName);
+
+            System.out.println("file.getName() = " + file.getName());
+            System.out.println("file.getAbsolutePath() = " + file.getAbsolutePath());
+
+            return new FileInputStream(file);
+            ////
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            sftpDisconnect();
+            return null;
+        }
     }
 
     private void sftpDisconnect() {
