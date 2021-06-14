@@ -61,8 +61,8 @@ const ImageSlider = () => {
     >
       <div style={{ paddingRight: '20px', display: 'flex' }}>
         <SimpleImageSlider
-          width="auto"
-          height="300px"
+          width="350px"
+          height="400px"
           images={dummy}
           showNavs="true"
           showBullets="true"

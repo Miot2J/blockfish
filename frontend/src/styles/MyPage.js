@@ -37,7 +37,7 @@ export const UserInfoBottomWrapper = styled.div`
 export const UserInfoInput = styled.input(() => ({
   minWidth: '400px',
   fontSize: '16px',
-  marginLeft: 60,
+  marginLeft: 'auto',
   borderRadius: 5,
   border: '2px solid rgb(205,205,205)',
   padding: '12px 20px',

@@ -52,12 +52,9 @@ const JoinForm = () => {
         <div>
           <form style={{ marginTop: 40 }} noValidate autoComplete="off" onSubmit={onSignup}>
             <UserInfoFieldWrapper>
-              <span style={{ width: 200 }}>
-                <TextDefault size="16px" color="#000000">
-                  아이디(이메일)
-                </TextDefault>
-                <TextDefault size="16px" color="#FF0000">
-                  *
+              <span style={{ marginRight: 50 }}>
+                <TextDefault width="100px" size="16px" color="#000000">
+                  <span>이메일</span>
                 </TextDefault>
               </span>
               <UserInfoInput
@@ -71,24 +68,18 @@ const JoinForm = () => {
             </UserInfoFieldWrapper>
 
             <UserInfoFieldWrapper>
-              <span style={{ width: 200 }}>
-                <TextDefault size="16px" color="#000000">
-                  이름
-                </TextDefault>
-                <TextDefault size="16px" color="#FF0000">
-                  *
+              <span style={{ marginRight: 50 }}>
+                <TextDefault width="100px" size="16px" color="#000000">
+                  <span>이름</span>
                 </TextDefault>
               </span>
               <UserInfoInput className={`${classes.userInfoInput}`} onChange={onChangeName} />
             </UserInfoFieldWrapper>
 
             <UserInfoFieldWrapper>
-              <span style={{ width: 200 }}>
+              <span style={{ marginRight: 50 }}>
                 <TextDefault size="16px" color="#000000">
-                  비밀번호
-                </TextDefault>
-                <TextDefault size="16px" color="#FF0000">
-                  *
+                  <span>비밀번호</span>
                 </TextDefault>
               </span>
               <UserInfoInput
@@ -99,12 +90,9 @@ const JoinForm = () => {
             </UserInfoFieldWrapper>
 
             <UserInfoFieldWrapper>
-              <span style={{ width: 200 }}>
+              <span style={{ marginRight: 50 }}>
                 <TextDefault size="16px" color="#000000">
-                  비밀번호 확인
-                </TextDefault>
-                <TextDefault size="16px" color="#FF0000">
-                  *
+                  <span>비밀번호 확인</span>
                 </TextDefault>
               </span>
               <UserInfoInput

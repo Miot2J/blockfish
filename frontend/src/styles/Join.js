@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import { Button, Checkbox } from '@material-ui/core';
 import { blueGrey } from '@material-ui/core/colors';
 
-export const JoinContainer = styled.section`
+export const JoinContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 80px 50px 30px 50px;
+  max-width: 960px;
+  margin: 0 auto;
 `;
 export const JoinCheckboxWrapper = styled.div`
   margin: 60px 0 30px 0;

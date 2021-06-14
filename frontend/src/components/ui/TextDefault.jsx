@@ -25,6 +25,11 @@ const Text = styled.span`
   font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight};
   letter-spacing: ${(props) => props.letterSpacing};
+  & span:after {
+    content: '*';
+    size: 16px;
+    color: red;
+  }
 `;
 
 export default TextDefault;
