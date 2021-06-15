@@ -1,11 +1,11 @@
 import React from 'react';
 import DefaultLayout from '../../layouts/DefaultLayout';
-import ImageSlider from '../../components/slider/ImageSlider';
+import Header from '../../components/header/Header';
 import DownloadMain from '../../components/download/DownloadMain';
 
 const Main = () => (
   <DefaultLayout>
-    <ImageSlider />
+    <Header />
     <DownloadMain />
   </DefaultLayout>
 );

@@ -64,3 +64,25 @@ a {
     right: 0;
   }
 }
+  // Main Img
+  .mainbackground {
+    transition: background-image 1s ease-in;
+    transition-property: background-image;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+    transition-delay: 0s;
+  }
+  .title {
+    color: #fff;
+    font-weight: bolder;
+    text-align: end;
+    font-size: 25px;
+    margin: 10px 10px 0;
+    font-weight: 700;
+    padding-bottom: 5px;
+    padding-top: 100px;
+  }
+  .introduction {
+    color: #fff;
+    text-align: end;
+  }
