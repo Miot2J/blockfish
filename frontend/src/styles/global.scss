@@ -66,6 +66,9 @@ a {
 }
   // Main Img
   .mainbackground {
+    align-items: 'center';
+    min-width: '768px';
+    height: '200px';
     transition: background-image 1s ease-in;
     transition-property: background-image;
     transition-duration: 1s;

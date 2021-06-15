@@ -6,9 +6,6 @@ const Header = () => {
     <div
       className="mainbackground"
       style={{
-        alignItems: 'center',
-        minWidth: '768px',
-        height: '200px',
         backgroundImage: `url(${backgroundImage})`,
       }}
     >

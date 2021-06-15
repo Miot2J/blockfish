@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import ModalProvider from './modalProvider/modalProvider';
 import reduxStore from './modules/configureStore';
+import AuthRoute from './pages/Auth/AuthRoute';
 import Main from './pages/Main';
 import Login from './pages/Login';
 import Join from './pages/Join';
@@ -21,13 +22,17 @@ function App() {
     <Provider store={reduxStore}>
       <ModalProvider />
       <Router>
-        <Route exact path="/blockfish" component={Main} />
+        <AuthRoute exact path="/blockfish" type="private">
+          <Main />
+        </AuthRoute>
         <Route exact path="/blockfish/download" component={Download} />
         <Route path="/blockfish/download/detail/:id" component={DownloadDetail} />
         <Route path="/login" component={Login} />
         <Route path="/join" component={Join} />
         <Route path="/join-form" component={JoinForm} />
-        <Route exact path="/my-page" component={MyPage} />
+        <AuthRoute exact path="/my-page" type="guest">
+          <MyPage />
+        </AuthRoute>
         <Route path="/my-page/userinfo" component={UserInfo} />
         <Route path="/my-page/review" component={UserInfo} />
         <Route path="/my-page/withdrawal" component={UserInfo} />

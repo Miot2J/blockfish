@@ -1,4 +1,5 @@
 export const initState = {
+  isAuthUser: !!localStorage.getItem('user'),
   logInLoading: false,
   logInDone: false,
   logInError: null,
@@ -8,7 +9,7 @@ export const initState = {
   signUpLoading: false,
   signUpDone: false,
   signUpError: null,
-  me: null,
+  user: JSON.parse(localStorage.getItem('user')) || {},
   loginData: {},
 };
 
@@ -44,11 +45,14 @@ export const signupRequestAction = (data) => ({
 const user = (state = initState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST:
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
       return {
         ...state,
+        isAuthUser: true,
         logInLoading: true,
         logInDone: false,
         logInError: null,
+        user: action.payload.user,
       };
     case LOG_OUT_REQUEST:
       return {

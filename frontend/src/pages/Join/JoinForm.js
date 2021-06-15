@@ -18,11 +18,15 @@ const JoinForm = () => {
   const [pwd, setPwd] = useState('');
   const [pwdCheck, handlePwdCheck] = useInput('');
   const [pwdState, setPwdState] = useState(false);
+  const [error, setError] = useState('');
 
   const onChangePwd = (e) => {
     debounce(() => {
+      if (e.target.value.length === 0) {
+        return;
+      }
       if (e.target.value.length < 8 || e.target.value.length > 20) {
-        alert('영문, 숫자, 특수문자 조합의 8~20자리 입니다.');
+        setError('영문, 숫자, 특수문자 조합의 8~20자리 입니다.');
         return;
       }
       if (regExpPwd(e.target.value)) {
@@ -33,7 +37,6 @@ const JoinForm = () => {
   };
   console.log('pwdState', pwdState);
   const onSignup = (e) => {
-    alert('dd');
     e.preventDefault();
     dispatch(signupRequestAction({ email, name, pwd }));
   };
@@ -52,7 +55,7 @@ const JoinForm = () => {
         <div>
           <form style={{ marginTop: 40 }} noValidate autoComplete="off" onSubmit={onSignup}>
             <UserInfoFieldWrapper>
-              <span style={{ marginRight: 50 }}>
+              <span style={{ width: 130 }}>
                 <TextDefault width="100px" size="16px" color="#000000">
                   <span>이메일</span>
                 </TextDefault>
@@ -68,7 +71,7 @@ const JoinForm = () => {
             </UserInfoFieldWrapper>
 
             <UserInfoFieldWrapper>
-              <span style={{ marginRight: 50 }}>
+              <span style={{ width: 130 }}>
                 <TextDefault width="100px" size="16px" color="#000000">
                   <span>이름</span>
                 </TextDefault>
@@ -77,7 +80,7 @@ const JoinForm = () => {
             </UserInfoFieldWrapper>
 
             <UserInfoFieldWrapper>
-              <span style={{ marginRight: 50 }}>
+              <span style={{ width: 130 }}>
                 <TextDefault size="16px" color="#000000">
                   <span>비밀번호</span>
                 </TextDefault>
@@ -87,10 +90,17 @@ const JoinForm = () => {
                 className={`${classes.userInfoInput}`}
                 onChange={onChangePwd}
               />
+              {error && (
+                <span style={{ marginLeft: 5 }}>
+                  <TextDefault size="14px" color="#000080">
+                    {error}
+                  </TextDefault>
+                </span>
+              )}
             </UserInfoFieldWrapper>
 
             <UserInfoFieldWrapper>
-              <span style={{ marginRight: 50 }}>
+              <span style={{ width: 130 }}>
                 <TextDefault size="16px" color="#000000">
                   <span>비밀번호 확인</span>
                 </TextDefault>
@@ -101,7 +111,7 @@ const JoinForm = () => {
                 value={pwdCheck}
                 onChange={handlePwdCheck}
               />
-              <span style={{ marginLeft: 15 }}>
+              <span style={{ marginLeft: 5 }}>
                 <TextDefault size="14px" color="#808080">
                   확인을 위해 한번 더 입력해주세요.
                 </TextDefault>
