@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Button } from '@material-ui/core';
 
@@ -19,7 +19,8 @@ import CheckboxWithLabel from '../../components/ui/CheckboxWithLabel';
 import QuillEditor from '../../components/editor/QuillEditor';
 import { isEmpty } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
-import { reqImage } from '../../modules/actions/uploadImage';
+import { reqFileUpload } from '../../modules/actions/fileUpload';
+import useFileUpload from '../../hooks/useFileUpload';
 
 const Upload = () => {
   const classes = useStyles();
@@ -27,12 +28,15 @@ const Upload = () => {
   const dispatch = useDispatch();
 
   const [filename, onChangeFilename] = useInput('');
-  const [fileImage, onChangefileImage] = useInput('');
-  const [checked, setChecked] = useState({
+  const [file, onChangeFile] = useFileUpload('');
+  const [fileImage, onChangeFileImage] = useFileUpload('');
+  const [checkedOs, setCheckedOs] = useState({
     window: false,
     mac: false,
     android: false,
     ios: false,
+  });
+  const [checkedPrice, setCheckedPrice] = useState({
     paid: false,
     free: false,
   });
@@ -41,6 +45,9 @@ const Upload = () => {
 
   const defaultString = 'Hello, This is CKEditor~~';
   const [content, setContent] = useState(defaultString);
+
+  const fileInputRef = useRef('');
+  const fileImageInputRef = useRef('');
 
   // 더미데이터
   const largeMenuList = [
@@ -54,8 +61,15 @@ const Upload = () => {
     { id: 2, name: '소분류3' },
   ];
 
-  const onChangeChecked = (e) => {
-    setChecked({ ...checked, [e.target.name]: e.target.checked });
+  const onChangeCheckedOs = (e) => {
+    setCheckedOs({ ...checkedOs, [e.target.name]: e.target.checked });
+  };
+  const onChangeCheckedPrice = (e) => {
+    const obj = {
+      paid: false,
+      free: false,
+    };
+    setCheckedPrice({ ...obj, [e.target.name]: e.target.checked });
   };
 
   const onChangeLargeMenu = (e) => {
@@ -65,14 +79,50 @@ const Upload = () => {
     setSmallMenu(e.target.value);
   };
 
-  const onClickUpload = () => {
-    if (isEmpty(fileImage)) {
-      alert('파일 이미지파일을 첨부해주세요.');
-    }
-    const formData = new FormData();
-    formData.append('image', fileImage);
+  const onClickFileUploadBtn = () => {
+    fileInputRef.current.click();
+  };
+  const onClickFileImageUploadBtn = () => {
+    fileImageInputRef.current.click();
+  };
 
-    dispatch(reqImage(formData));
+  const onClickUpload = () => {
+    if (isEmpty(filename)) {
+      alert('파일명을 입력해주세요.');
+      return;
+    }
+    if (isEmpty(file)) {
+      alert('파일을 첨부해주세요.');
+      return;
+    }
+    if (!checkedOs.android && !checkedOs.ios && !checkedOs.window && !checkedOs.mac) {
+      alert('OS를 선택해주세요.');
+      return;
+    }
+    if (!checkedPrice.paid && !checkedPrice.free) {
+      alert('가격을 선택해주세요.');
+      return;
+    }
+
+    const FileInformationDto = {
+      name: '',
+      imageAddress: '',
+      info: '',
+      osType: '',
+    };
+    const formData = new FormData();
+    formData.append('files', fileImage);
+
+    FileInformationDto.name = filename;
+    FileInformationDto.imageAddress = null;
+    FileInformationDto.info = content;
+    FileInformationDto.osType = 'Mac';
+
+    formData.append('FileInformationDto', FileInformationDto);
+
+    console.log('fileObject', FileInformationDto);
+
+    dispatch(reqFileUpload(formData));
   };
 
   return (
@@ -117,8 +167,20 @@ const Upload = () => {
               <TextDefault size="16px" color="#000" width="150px">
                 파일
               </TextDefault>
-              <UploadInput type="text" value={filename} onChange={onChangeFilename} />
-              <Button className={`${classes.fileSelctionBtn}`} style={{ marginLeft: '10px' }}>
+              <UploadInput type="text" value={file} onChange={onChangeFile} readOnly />
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                multiple
+                type="file"
+                ref={fileInputRef}
+                onChange={onChangeFile}
+              />
+              <Button
+                className={`${classes.fileSelctionBtn}`}
+                style={{ marginLeft: '10px' }}
+                onClick={onClickFileUploadBtn}
+              >
                 파일선택
               </Button>
             </UploadContentItem>
@@ -129,8 +191,20 @@ const Upload = () => {
               <TextDefault size="16px" color="#000" width="150px">
                 파일 이미지
               </TextDefault>
-              <UploadInput type="file" value={fileImage} onChange={onChangefileImage} />
-              <Button className={`${classes.fileSelctionBtn}`} style={{ marginLeft: '10px' }}>
+              <UploadInput type="text" value={fileImage} onChange={onChangeFileImage} readOnly />
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                multiple
+                type="file"
+                ref={fileImageInputRef}
+                onChange={onChangeFileImage}
+              />
+              <Button
+                className={`${classes.fileSelctionBtn}`}
+                style={{ marginLeft: '10px' }}
+                onClick={onClickFileImageUploadBtn}
+              >
                 이미지선택
               </Button>
             </UploadContentItem>
@@ -143,26 +217,26 @@ const Upload = () => {
               </TextDefault>
 
               <CheckboxWithLabel
-                checked={checked.window}
-                onChangeChecked={onChangeChecked}
+                checked={checkedOs.window}
+                onChangeChecked={onChangeCheckedOs}
                 name="window"
                 label="Window"
               />
               <CheckboxWithLabel
-                checked={checked.mac}
-                onChangeChecked={onChangeChecked}
+                checked={checkedOs.mac}
+                onChangeChecked={onChangeCheckedOs}
                 name="mac"
                 label="Mac"
               />
               <CheckboxWithLabel
-                checked={checked.android}
-                onChangeChecked={onChangeChecked}
+                checked={checkedOs.android}
+                onChangeChecked={onChangeCheckedOs}
                 name="android"
                 label="Android"
               />
               <CheckboxWithLabel
-                checked={checked.ios}
-                onChangeChecked={onChangeChecked}
+                checked={checkedOs.ios}
+                onChangeChecked={onChangeCheckedOs}
                 name="ios"
                 label="iOS"
               />
@@ -176,14 +250,14 @@ const Upload = () => {
               </TextDefault>
 
               <CheckboxWithLabel
-                checked={checked.free}
-                onChangeChecked={onChangeChecked}
+                checked={checkedPrice.free}
+                onChangeChecked={onChangeCheckedPrice}
                 name="free"
                 label="Free"
               />
               <CheckboxWithLabel
-                checked={checked.paid}
-                onChangeChecked={onChangeChecked}
+                checked={checkedPrice.paid}
+                onChangeChecked={onChangeCheckedPrice}
                 name="paid"
                 label="Paid"
               />
