@@ -1,15 +1,12 @@
 import { takeEvery } from '@redux-saga/core/effects';
 import { createPromiseSaga, handleAsyncActions, reducerUtils } from '../../utils/asyncUtils';
 import { getList, GET_LIST, GET_LIST_ERROR, GET_LIST_SUCCESS } from '../actions/list';
-import { REQ_IMAGE } from '../actions/uploadImage';
-import { reqUpload } from '../reducers/uploadImage';
 
 const getListSaga = createPromiseSaga(GET_LIST, getList);
 
 // API 호출 SAGA
 export function* fetchSaga() {
   yield takeEvery(GET_LIST, getListSaga);
-  yield takeEvery(REQ_IMAGE, reqUpload);
 }
 
 const initState = { list: reducerUtils.initial() };
