@@ -7,18 +7,26 @@ import { UserInfoFieldWrapper, UserInfoBottomWrapper, UserInfoInput } from '../.
 import useInput from '../../hooks/useInput';
 import { useStyles } from '../../styles/materialsStyle';
 import { regExpPwd, debounce } from '../../utils/utils';
-import { useDispatch } from 'react-redux';
-import { signupRequestAction } from '../../modules/actions/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { signupRequestAction, emailduplicateRequestAction } from '../../modules/actions/user';
+import { Redirect } from 'react-router-dom';
 
 const JoinForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [email, onChangeEmail] = useInput('');
   const [name, onChangeName] = useInput('');
-  const [pwd, setPwd] = useState('');
-  const [pwdCheck, handlePwdCheck] = useInput('');
+  const [password, setPassword] = useState('');
   const [pwdState, setPwdState] = useState(false);
+  const [pwdCheck, setPwdCheck] = useState(false);
   const [error, setError] = useState('');
+  const { emailDuplicate } = useSelector((state) => state.user);
+
+  const onCheckEmail = (e) => {
+    const result = e.target.value;
+    e.preventDefault();
+    dispatch(emailduplicateRequestAction({ result }));
+  };
 
   const onChangePwd = (e) => {
     debounce(() => {
@@ -30,15 +38,27 @@ const JoinForm = () => {
         return;
       }
       if (regExpPwd(e.target.value)) {
+        setError('비밀번호 조건 충족');
         setPwdState(true);
       }
     }, 1000);
-    setPwd(e.target.value);
+    setPassword(e.target.value);
   };
-  console.log('pwdState', pwdState);
+
+  const onCheckPwd = (e) => {
+    const currentPwd = e.target.value;
+    if (currentPwd === password) {
+      setPwdCheck(!pwdCheck);
+    }
+  };
+
   const onSignup = (e) => {
     e.preventDefault();
-    dispatch(signupRequestAction({ email, name, pwd }));
+    if (pwdState && emailDuplicate) {
+      const userId = email;
+      dispatch(signupRequestAction({ userId, email, name, password }));
+    }
+    <Redirect to="/login" />;
   };
 
   return (
@@ -66,7 +86,10 @@ const JoinForm = () => {
                 onChange={onChangeEmail}
               />
               <span style={{ marginLeft: 15 }}>
-                <Button className={`${classes.emailChkBtn}`}>중복확인</Button>
+                {emailDuplicate ? '사용 가능' : '사용 불가능'}
+                <Button className={`${classes.emailChkBtn}`} onClick={onCheckEmail}>
+                  중복확인
+                </Button>
               </span>
             </UserInfoFieldWrapper>
 
@@ -108,12 +131,11 @@ const JoinForm = () => {
               <UserInfoInput
                 type="password"
                 className={`${classes.userInfoInput}`}
-                value={pwdCheck}
-                onChange={handlePwdCheck}
+                onChange={onCheckPwd}
               />
               <span style={{ marginLeft: 5 }}>
                 <TextDefault size="14px" color="#808080">
-                  확인을 위해 한번 더 입력해주세요.
+                  {pwdCheck ? '비밀번호 일치' : '비밀번호 불일치'}
                 </TextDefault>
               </span>
             </UserInfoFieldWrapper>

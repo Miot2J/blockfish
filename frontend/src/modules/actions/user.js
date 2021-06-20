@@ -6,6 +6,7 @@ export const initState = {
   logOutLoading: false,
   logOutDone: false,
   logOutError: null,
+  emailDuplicate: false,
   signUpLoading: false,
   signUpDone: false,
   signUpError: null,
@@ -21,11 +22,19 @@ export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
+export const EMAIL_DUPLICATE_REQUEST = 'EMAIL_DUPLICATE_REQUEST';
+export const EMAIL_DUPLICATE_SUCCESS = 'EMAIL_DUPLICATE_SUCCESS';
+export const EMAIL_DUPLICATE_FAILURE = 'EMAIL_DUPLICATE_FAILURE';
+
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
 // 액션 함수 정의
+export const emailduplicateRequestAction = (data) => ({
+  type: EMAIL_DUPLICATE_REQUEST,
+  data,
+});
 export const loginRequestAction = (data) => ({
   type: LOG_IN_REQUEST,
   data,
@@ -45,14 +54,12 @@ export const signupRequestAction = (data) => ({
 const user = (state = initState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST:
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
       return {
         ...state,
         isAuthUser: true,
         logInLoading: true,
         logInDone: false,
         logInError: null,
-        user: action.payload.user,
       };
     case LOG_OUT_REQUEST:
       return {
@@ -60,6 +67,18 @@ const user = (state = initState, action) => {
         logOutLoading: true,
         logOutDone: false,
         logOutError: null,
+      };
+    case EMAIL_DUPLICATE_REQUEST:
+      return {
+        emailDuplicate: false,
+      };
+    case EMAIL_DUPLICATE_SUCCESS:
+      return {
+        emailDuplicate: true,
+      };
+    case EMAIL_DUPLICATE_FAILURE:
+      return {
+        emailDuplicate: false,
       };
     case SIGN_UP_REQUEST:
       return {

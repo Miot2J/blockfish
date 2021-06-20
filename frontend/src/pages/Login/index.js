@@ -31,7 +31,9 @@ const Login = () => {
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    dispatch(loginRequestAction({ email, password }));
+    const userId = email;
+    const name = email;
+    dispatch(loginRequestAction({ userId, password, name, email }));
   };
 
   return (
