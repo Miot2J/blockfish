@@ -72,17 +72,22 @@ function signUpAPI(data) {
 function* signUp(action) {
   try {
     const result = yield call(signUpAPI, action.data);
-    yield delay(1000);
+    const link = action.data.history;
+
+    // yield delay(1000);
     if (result.data.response === 'success') {
       yield put({
         type: SIGN_UP_SUCCESS,
         data: result.data,
       });
+      alert('회원가입 성공했습니다.');
+      link.push('/login');
     } else {
       yield put({
         type: SIGN_UP_FAILURE,
         data: result.data,
       });
+      alert('회원가입에 실패했습니다.');
     }
   } catch (err) {
     console.error(err);
@@ -90,6 +95,7 @@ function* signUp(action) {
       type: SIGN_UP_FAILURE,
       error: err.response.data,
     });
+    alert('회원가입에 실패했습니다.');
   }
 }
 

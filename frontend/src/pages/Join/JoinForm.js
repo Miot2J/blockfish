@@ -9,7 +9,7 @@ import { useStyles } from '../../styles/materialsStyle';
 import { regExpPwd, debounce } from '../../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupRequestAction, emailduplicateRequestAction } from '../../modules/actions/user';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const JoinForm = () => {
   const classes = useStyles();
@@ -20,7 +20,11 @@ const JoinForm = () => {
   const [pwdState, setPwdState] = useState(false);
   const [pwdCheck, setPwdCheck] = useState(false);
   const [error, setError] = useState('');
-  const { emailDuplicate } = useSelector((state) => state.user);
+  const { emailDuplicate } = useSelector((state) => ({
+    emailDuplicate: state.user.emailDuplicate,
+  }));
+
+  const history = useHistory();
 
   const onCheckEmail = (e) => {
     const result = e.target.value;
@@ -54,11 +58,14 @@ const JoinForm = () => {
 
   const onSignup = (e) => {
     e.preventDefault();
-    if (pwdState && emailDuplicate) {
-      const userId = email;
-      dispatch(signupRequestAction({ userId, email, name, password }));
+    if (!emailDuplicate) {
+      alert('이메일 중복확인을 해주세요.');
+      return;
     }
-    <Redirect to="/login" />;
+    if (pwdState) {
+      const userId = email;
+      dispatch(signupRequestAction({ userId, email, name, password, history }));
+    }
   };
 
   return (
