@@ -1,5 +1,7 @@
 package com.project.blockfish.businesslogic.util;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.*;
 
 public class Converter {
@@ -8,14 +10,20 @@ public class Converter {
 
     }
 
-    public static File convertInputStreamToFile(InputStream inputStream) throws IOException {
-        //  임시 파일 생성
-        File tempFile = File.createTempFile(String.valueOf(inputStream.hashCode()), ".tmp");
-        // JVM 종료시 지워지도록 설정
-        tempFile.deleteOnExit();
-        copyInputStreamToFile(inputStream, tempFile);
+    public static File convertInputStreamToFile(InputStream inputStream ){
+        try {
+            //  임시 파일 생성
+            File tempFile = File.createTempFile(String.valueOf(inputStream.hashCode()), ".tmp");
+            // JVM 종료시 지워지도록 설정
+            tempFile.deleteOnExit();
+            copyInputStreamToFile(inputStream, tempFile);
 
-        return tempFile;
+            return tempFile;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     //inputStream 에서 데이터를 읽어 로컬 파일시스템에 임시파일로 저장
@@ -33,5 +41,11 @@ public class Converter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static File multiPartFileToFile(MultipartFile multipartFile) throws IOException,IllegalStateException {
+        File file = new File(multipartFile.getOriginalFilename());
+        multipartFile.transferTo(file);
+        return file;
     }
 }

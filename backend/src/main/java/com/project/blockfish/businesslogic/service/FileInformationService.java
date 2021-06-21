@@ -13,7 +13,5 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public interface FileInformationService {
     void saveFileInfo(FileInformation files);
-    String getHash(FileInputStream fileInputStream) throws IOException, NoSuchAlgorithmException;
-    String getHash2(String path) throws IOException, NoSuchAlgorithmException;
     FileInformation findByFileId(Long fileId) throws NotFoundException;
 }
