@@ -1,4 +1,4 @@
-import { fork, delay, put, takeLatest, call, all } from 'redux-saga/effects';
+import { fork, put, takeLatest, call, all } from 'redux-saga/effects';
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -13,21 +13,26 @@ import {
 import axios from 'axios';
 
 function logInAPI(data) {
-  return axios.post('/user/login', data);
+  return axios.post('/user/login', data, { withCredentials: true });
 }
 
 function* logIn(action) {
   try {
-    console.log('saga logIn', action.data);
     const result = yield call(logInAPI, action.data);
-    console.log(result.message);
-    yield delay(1000);
+    const link = action.data.history;
     if (result.data.response === 'success') {
-      localStorage.setItem('user', JSON.stringify(result.data.data.email));
       yield put({
         type: LOG_IN_SUCCESS,
         data: result.data,
       });
+      alert('로그인 성공했습니다.');
+      link.push('/blockfish');
+    } else {
+      yield put({
+        type: LOG_IN_FAILURE,
+        data: result.data,
+      });
+      alert('로그인 실패했습니다.');
     }
   } catch (err) {
     console.error(err);

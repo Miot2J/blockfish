@@ -19,6 +19,8 @@ import { LoginContainer, LoginWrapper } from '../../styles/Login';
 import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../modules/actions/user';
 import useInput from '../../hooks/useInput';
+import { useHistory } from 'react-router-dom';
+
 /**
  * @function Login
  * @author Seorim
@@ -28,12 +30,13 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+  const history = useHistory();
 
   const onSubmitForm = (event) => {
     event.preventDefault();
     const userId = email;
     const name = email;
-    dispatch(loginRequestAction({ userId, password, name, email }));
+    dispatch(loginRequestAction({ userId, password, name, email, history }));
   };
 
   return (

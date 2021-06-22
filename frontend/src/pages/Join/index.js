@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormControlLabel, FormGroup } from '@material-ui/core';
-
 import DefaultLayout from '../../layouts/DefaultLayout';
 import TextDefault from '../../components/ui/TextDefault';
 import {
