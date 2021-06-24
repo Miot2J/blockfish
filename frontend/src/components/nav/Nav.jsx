@@ -20,12 +20,14 @@ import { openModal } from '../../modules/actions/modal';
 
 const Nav = () => {
   const history = useHistory();
-  const { me } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const handleOpen = () => {
     dispatch(openModal('SEARCH_MODAL', {}));
   };
-
+  const onClickLogout = () => {
+    alert('로그아웃 개발 중!');
+  };
   const onClickUploadBtn = () => {
     // 로그인 검증 작업 필요
     history.push('/my-page/upload');
@@ -38,8 +40,8 @@ const Nav = () => {
         <NavTopBar>
           <NavTopBarUl>
             <NavTopBarLi>
-              {me ? (
-                <Link to="/login">
+              {user ? (
+                <Link to="/blockfish" onClick={onClickLogout}>
                   <TextDefault size="15px" color="#eee" lineHeight="35px">
                     로그아웃
                   </TextDefault>
@@ -55,7 +57,7 @@ const Nav = () => {
               )}
             </NavTopBarLi>
             <NavTopBarLi>
-              {!me ? (
+              {!user ? (
                 <Link to="/join">
                   <TextDefault size="15px" color="#eee" lineHeight="35px">
                     회원가입

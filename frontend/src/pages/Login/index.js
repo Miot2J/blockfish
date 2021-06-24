@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-  Checkbox,
-  InputAdornment,
-  TextField,
-  FormControlLabel,
-  FormGroup,
-} from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { InputAdornment, TextField, FormGroup } from '@material-ui/core';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
@@ -20,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../modules/actions/user';
 import useInput from '../../hooks/useInput';
 import { useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 /**
  * @function Login
@@ -30,8 +25,23 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+  const [remembered, setRemembered] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['rememberEmail']);
   const history = useHistory();
-
+  useEffect(() => {
+    if (cookies.rememberEmail !== undefined) {
+      onChangeEmail(cookies.rememberEmail);
+      setRemembered(true);
+    }
+  }, []);
+  const handleChange = (e) => {
+    setRemembered(e.target.check);
+    if (e.target.check) {
+      setCookie('rememberEmail', email, { maxAge: 2000 });
+    } else {
+      removeCookie('rememberEmail');
+    }
+  };
   const onSubmitForm = (event) => {
     event.preventDefault();
     const userId = email;
@@ -75,7 +85,7 @@ const Login = () => {
             onChange={onChangePassword}
           />
           <FormGroup row>
-            <FormControlLabel control={<Checkbox checked={false} />} label="아이디 저장" />
+            <input type="checkbox" checked={remembered} onChange={handleChange} />
             <span style={{ alignSelf: 'center' }}>
               <Link href="/#">아이디 찾기</Link> | <Link href="/#">비밀번호 찾기</Link>
             </span>
