@@ -5,7 +5,7 @@ const useFileUpload = (defaultValue) => {
   const handleChange = (e) => {
     const file = e.target.files[0];
     try {
-      setValue(file.name);
+      setValue(file);
     } catch (err) {
       console.log(err);
     }

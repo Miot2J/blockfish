@@ -43,7 +43,7 @@ const Upload = () => {
   const [largeMenu, setLargeMenu] = useState('');
   const [smallMenu, setSmallMenu] = useState('');
 
-  const defaultString = 'Hello, This is CKEditor~~';
+  const defaultString = 'TEST';
   const [content, setContent] = useState(defaultString);
 
   const fileInputRef = useRef('');
@@ -91,7 +91,7 @@ const Upload = () => {
       alert('파일명을 입력해주세요.');
       return;
     }
-    if (isEmpty(file)) {
+    if (isEmpty(fileImage)) {
       alert('파일을 첨부해주세요.');
       return;
     }
@@ -118,9 +118,11 @@ const Upload = () => {
     FileInformationDto.info = content;
     FileInformationDto.osType = 'Mac';
 
-    formData.append('FileInformationDto', FileInformationDto);
+    formData.append('FileInformationDto', JSON.stringify(FileInformationDto));
 
     console.log('fileObject', FileInformationDto);
+    console.log(formData.get('files'));
+    console.log(formData.get('FileInformationDto'));
 
     dispatch(reqFileUpload(formData));
   };
@@ -167,7 +169,12 @@ const Upload = () => {
               <TextDefault size="16px" color="#000" width="150px">
                 파일
               </TextDefault>
-              <UploadInput type="text" value={file} onChange={onChangeFile} readOnly />
+              <UploadInput
+                type="text"
+                value={isEmpty(file) ? '' : file.name}
+                onChange={onChangeFile}
+                readOnly
+              />
               <input
                 accept="image/*"
                 style={{ display: 'none' }}
@@ -191,7 +198,12 @@ const Upload = () => {
               <TextDefault size="16px" color="#000" width="150px">
                 파일 이미지
               </TextDefault>
-              <UploadInput type="text" value={fileImage} onChange={onChangeFileImage} readOnly />
+              <UploadInput
+                type="text"
+                value={isEmpty(fileImage) ? '' : fileImage.name}
+                onChange={onChangeFileImage}
+                readOnly
+              />
               <input
                 accept="image/*"
                 style={{ display: 'none' }}
