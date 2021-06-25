@@ -14,6 +14,11 @@ import axios from 'axios';
 
 function logInAPI(data) {
   return axios.post('/user/login', data, { withCredentials: true });
+  // headers: {
+  //   Accept: 'application/json',
+  //   'Content-Type': 'application/json',
+  // },
+  // credentials: 'same-origin',
 }
 
 function* logIn(action) {
