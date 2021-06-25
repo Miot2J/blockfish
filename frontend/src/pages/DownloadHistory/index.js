@@ -5,7 +5,6 @@ import ListCardTemplate from '../../components/cards/ListCardTemplate';
 import ListGubunBar from '../../components/download/ListGubunBar';
 import PagingContainer from '../../components/pagination/PagingContainer';
 import useInputPage from '../../hooks/useInputPage';
-import DefaultLayout from '../../layouts/DefaultLayout';
 import MyPageLayout from '../../layouts/MyPageLayout';
 import { getListStart } from '../../modules/actions/list';
 import { GridLayoutWrapper } from '../../styles/Download';
@@ -111,7 +110,7 @@ const DownloadHistory = () => {
   console.log('list', list);
 
   return (
-    <DefaultLayout>
+    <>
       <MyPageLayout title="다운로드 내역" viewState={3}>
         <ListGubunBar onToggleView={onToggleView} />
         <div style={{ marginTop: 20 }}>
@@ -131,7 +130,7 @@ const DownloadHistory = () => {
         <PagingContainer whlPage={5} page={page} handleChangePage={onhandleChangePage} />
         {/* 페이징 - 끝 */}
       </MyPageLayout>
-    </DefaultLayout>
+    </>
   );
 };
 

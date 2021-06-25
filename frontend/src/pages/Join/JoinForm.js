@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import TextDefault from '../../components/ui/TextDefault';
 import { JoinContainer } from '../../styles/Join';
 import { Button } from '@material-ui/core';
-import DefaultLayout from '../../layouts/DefaultLayout';
 import { UserInfoFieldWrapper, UserInfoBottomWrapper, UserInfoInput } from '../../styles/MyPage';
 import useInput from '../../hooks/useInput';
 import { useStyles } from '../../styles/materialsStyle';
@@ -69,7 +68,7 @@ const JoinForm = () => {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <JoinContainer>
         <TextDefault size="30px" weight="700">
           회원가입
@@ -154,7 +153,7 @@ const JoinForm = () => {
           </form>
         </div>
       </JoinContainer>
-    </DefaultLayout>
+    </>
   );
 };
 

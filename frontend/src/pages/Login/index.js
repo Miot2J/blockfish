@@ -6,7 +6,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
-import DefaultLayout from '../../layouts/DefaultLayout';
 import TextDefault from '../../components/ui/TextDefault';
 import { LoginContainer, LoginWrapper } from '../../styles/Login';
 
@@ -50,7 +49,7 @@ const Login = () => {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <LoginContainer>
         <TextDefault size="30px" weight="700">
           로그인
@@ -103,7 +102,7 @@ const Login = () => {
           </Button>
         </LoginWrapper>
       </LoginContainer>
-    </DefaultLayout>
+    </>
   );
 };
 

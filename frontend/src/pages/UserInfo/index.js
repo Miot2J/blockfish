@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import TextDefault from '../../components/ui/TextDefault';
 import { Button } from '@material-ui/core';
-import DefaultLayout from '../../layouts/DefaultLayout';
 import { UserInfoFieldWrapper, UserInfoBottomWrapper, UserInfoInput } from '../../styles/MyPage';
 import { useStyles } from '../../styles/materialsStyle';
 import MyPageLayout from '../../layouts/MyPageLayout';
@@ -29,7 +28,7 @@ const UserInfo = () => {
   };
   console.log('pwdState', pwdState);
   return (
-    <DefaultLayout>
+    <>
       <MyPageLayout title="개인정보" viewState={0}>
         <div>
           <form style={{ marginTop: 40 }} noValidate autoComplete="off">
@@ -106,7 +105,7 @@ const UserInfo = () => {
           <Button className={`${classes.userInfoCancelBtn}`}>취소</Button>
         </UserInfoBottomWrapper>
       </MyPageLayout>
-    </DefaultLayout>
+    </>
   );
 };
 

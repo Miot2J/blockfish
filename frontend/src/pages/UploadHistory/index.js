@@ -4,7 +4,6 @@ import CheckedListCardTemplate from '../../components/cards/CheckedListCardTempl
 import PagingContainer from '../../components/pagination/PagingContainer';
 import CheckboxDefault from '../../components/ui/CheckboxDefault';
 import useInputPage from '../../hooks/useInputPage';
-import DefaultLayout from '../../layouts/DefaultLayout';
 import MyPageLayout from '../../layouts/MyPageLayout';
 import { isEmpty } from '../../utils/utils';
 import { useStyles } from '../../styles/materialsStyle';
@@ -122,7 +121,7 @@ const UploadHistory = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    <>
       <MyPageLayout title="업로드 내역" viewState={4}>
         <div style={{ marginTop: 20 }}>
           <div style={{ marginLeft: 25 }}>
@@ -159,7 +158,7 @@ const UploadHistory = () => {
         <PagingContainer whlPage={5} page={page} handleChangePage={onhandleChangePage} />
         {/* 페이징 - 끝 */}
       </MyPageLayout>
-    </DefaultLayout>
+    </>
   );
 };
 

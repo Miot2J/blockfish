@@ -138,7 +138,7 @@ export const FooterBottom = styled.div`
 `;
 export const MainConent = styled.section`
   width: 100%;
-  min-height: 600px;
+  min-height: calc(100vh - 267px);
 `;
 export const MainConentContainer = styled.section`
   width: 100%;

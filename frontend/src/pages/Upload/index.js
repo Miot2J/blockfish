@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Button } from '@material-ui/core';
 
-import DefaultLayout from '../../layouts/DefaultLayout';
 import MyPageLayout from '../../layouts/MyPageLayout';
 import TextDefault from '../../components/ui/TextDefault';
 import {
@@ -128,7 +127,7 @@ const Upload = () => {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <MyPageLayout title="업로드" viewState={5}>
         {/* 업로드 화면 레이아웃 - 시작 */}
         <UploadContainer>
@@ -316,7 +315,7 @@ const Upload = () => {
         </UploadContainer>
         {/* 업로드 화면 레이아웃 - 끝 */}
       </MyPageLayout>
-    </DefaultLayout>
+    </>
   );
 };
 

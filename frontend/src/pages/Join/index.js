@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormControlLabel, FormGroup } from '@material-ui/core';
-import DefaultLayout from '../../layouts/DefaultLayout';
 import TextDefault from '../../components/ui/TextDefault';
 import {
   JoinButton,
@@ -14,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 /**
  * @function Join
- * @author MinByeongChan
+ * @author Byeong Chan
  * @description 회원가입 선택 화면
  */
 const Join = () => {
@@ -27,7 +26,7 @@ const Join = () => {
   };
 
   return (
-    <DefaultLayout>
+    <>
       <JoinContainer>
         <TextDefault size="30px" weight="700">
           회원가입
@@ -51,7 +50,7 @@ const Join = () => {
           </JoinButton>
         </JoinContentWrapper>
       </JoinContainer>
-    </DefaultLayout>
+    </>
   );
 };
 

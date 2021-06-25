@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import BreadScrumb from '../../components/downloadDetail/BreadScrumb';
 import DownloadDetailLeft from '../../components/downloadDetail/DownloadDetailLeft';
 import DownloadDetailRight from '../../components/downloadDetail/DownloadDetailRight';
-import DefaultLayout from '../../layouts/DefaultLayout';
 import { DnldDetailWrapper } from '../../styles/DownloadDetail';
 
 const DownloadDetail = (props) => {
@@ -14,13 +13,13 @@ const DownloadDetail = (props) => {
   }, []);
 
   return (
-    <DefaultLayout>
+    <>
       <BreadScrumb />
       <DnldDetailWrapper>
         <DownloadDetailLeft />
         <DownloadDetailRight />
       </DnldDetailWrapper>
-    </DefaultLayout>
+    </>
   );
 };
 

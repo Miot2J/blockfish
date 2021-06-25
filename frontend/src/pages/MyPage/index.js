@@ -1,6 +1,5 @@
 import React from 'react';
 import TextDefault from '../../components/ui/TextDefault';
-import DefaultLayout from '../../layouts/DefaultLayout';
 import { MyPageCardContainer, MyPageCardWrapper, MyPageContainer } from '../../styles/MyPage';
 import { ReactComponent as UserCircleSvg } from '../../assets/user-circle-solid.svg';
 import { ReactComponent as EditSvg } from '../../assets/edit-solid.svg';
@@ -13,7 +12,7 @@ import { Link } from 'react-router-dom';
 const MyPage = () => {
   console.log('hello');
   return (
-    <DefaultLayout>
+    <>
       <div>
         <TextDefault size="30px" weight="700">
           MyPage
@@ -99,7 +98,7 @@ const MyPage = () => {
           </MyPageCardContainer>
         </Link>
       </MyPageContainer>
-    </DefaultLayout>
+    </>
   );
 };
 
