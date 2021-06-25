@@ -61,6 +61,23 @@ const user = (state = initState, action) => {
         logInDone: false,
         logInError: null,
       };
+    case LOG_IN_SUCCESS:
+      return {
+        ...state,
+        user: action.data,
+        isAuthUser: true,
+        logInLoading: false,
+        logInDone: true,
+        logInError: null,
+      };
+    case LOG_IN_FAILURE:
+      return {
+        ...state,
+        isAuthUser: true,
+        logInLoading: false,
+        logInDone: true,
+        logInError: action.error,
+      };
     case LOG_OUT_REQUEST:
       return {
         ...state,

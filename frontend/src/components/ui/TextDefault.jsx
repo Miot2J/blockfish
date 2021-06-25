@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const TextDefault = (props) => {
-  const { children, size, color, weight, lineHeight, letterSpacing, width } = props;
+  const { children, size, color, weight, lineHeight, letterSpacing, width, onClick } = props;
 
   return (
     <Text
@@ -12,6 +12,7 @@ const TextDefault = (props) => {
       lineHeight={lineHeight && `${lineHeight}`}
       letterSpacing={letterSpacing && `${letterSpacing}`}
       width={width && `${width}`}
+      onClick={onClick}
     >
       {children}
     </Text>

@@ -17,6 +17,7 @@ import TextDefault from '../ui/TextDefault';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as SearchSvg } from '../../assets/search-black.svg';
 import { openModal } from '../../modules/actions/modal';
+import { isEmpty } from '../../utils/utils';
 
 const Nav = () => {
   const history = useHistory();
@@ -26,7 +27,8 @@ const Nav = () => {
     dispatch(openModal('SEARCH_MODAL', {}));
   };
   const onClickLogout = () => {
-    alert('로그아웃 개발 중!');
+    // 쿠키 제거 또는 로그아웃 API 연동 필요
+    alert('로그아웃 되었습니다');
   };
   const onClickUploadBtn = () => {
     // 로그인 검증 작업 필요
@@ -40,13 +42,13 @@ const Nav = () => {
         <NavTopBar>
           <NavTopBarUl>
             <NavTopBarLi>
-              {user ? (
-                <Link to="/blockfish" onClick={onClickLogout}>
-                  <TextDefault size="15px" color="#eee" lineHeight="35px">
+              {!isEmpty(user) ? (
+                <>
+                  <TextDefault size="15px" color="#eee" lineHeight="35px" onClick={onClickLogout}>
                     로그아웃
                   </TextDefault>
                   <NavTopBarUnderLine />
-                </Link>
+                </>
               ) : (
                 <Link to="/login">
                   <TextDefault size="15px" color="#eee" lineHeight="35px">
@@ -57,7 +59,7 @@ const Nav = () => {
               )}
             </NavTopBarLi>
             <NavTopBarLi>
-              {!user ? (
+              {isEmpty(user) ? (
                 <Link to="/join">
                   <TextDefault size="15px" color="#eee" lineHeight="35px">
                     회원가입

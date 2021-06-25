@@ -28,7 +28,7 @@ function* logIn(action) {
     if (result.data.response === 'success') {
       yield put({
         type: LOG_IN_SUCCESS,
-        data: result.data,
+        data: result.data.data,
       });
       alert('로그인 성공했습니다.');
       link.push('/blockfish');
