@@ -20,5 +20,5 @@ public class Download {
 
 //    @OneToMany
 //    @JoinColumn(name = "file_id")
-//    private List<File> downloads;
+//    private List<FileInformation> downloads;
 }

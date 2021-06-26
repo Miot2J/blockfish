@@ -36,10 +36,9 @@ public class FileRepositoryTest {
             String osType = "MAC";
             int downCount = 0;
             String blockChainAddress = "Axabcx3ctest";
-            int starRank = 5;
             LocalDateTime createAt = LocalDateTime.MIN;
 
-            FileInformation file = new FileInformation(name,imageAddress,fileAddress,info,osType,downCount,blockChainAddress,starRank,createAt);
+            FileInformation file = new FileInformation(name,imageAddress,fileAddress,info,osType,downCount,blockChainAddress,createAt);
             fileRepository.save(file);
 
             //when
