@@ -1,6 +1,9 @@
 package com.project.blockfish.domainmodel;
 
+import com.project.blockfish.businesslogic.domain.Comment;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class SearchedFileDto {
     private Long id;
@@ -15,11 +18,24 @@ public class SearchedFileDto {
 
     private int downCount;
 
-    private int StarRank;
+    private int starRank;
 
-//    List<Comment> comments;
-//
-//    List<Category> category;
+    private String categoryName;
+
+    List<Comment> comments;
+
+    public SearchedFileDto(Long id, String name, String imageAddress, String info, String osType, int downCount, int starRank, String categoryName, List<Comment> comments, LocalDateTime updateAt) {
+        this.id = id;
+        this.name = name;
+        this.imageAddress = imageAddress;
+        this.info = info;
+        this.osType = osType;
+        this.downCount = downCount;
+        this.starRank = starRank;
+        this.categoryName = categoryName;
+        this.comments = comments;
+        this.updateAt = updateAt;
+    }
 
     private LocalDateTime updateAt;
 
@@ -75,11 +91,11 @@ public class SearchedFileDto {
     }
 
     public int getStarRank() {
-        return StarRank;
+        return starRank;
     }
 
     public void setStarRank(int starRank) {
-        StarRank = starRank;
+        this.starRank = starRank;
     }
 
 /*    public List<Comment> getComments() {
