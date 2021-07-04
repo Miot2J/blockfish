@@ -2,10 +2,8 @@ package com.project.blockfish.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jcraft.jsch.JSchException;
 import com.project.blockfish.businesslogic.response.Response;
 import com.project.blockfish.businesslogic.domain.SFTPSender;
-import com.project.blockfish.businesslogic.util.Converter;
 import com.project.blockfish.domainmodel.FileInformationDto;
 import com.project.blockfish.domainmodel.KlayDto;
 import com.project.blockfish.businesslogic.service.FileInformationService;

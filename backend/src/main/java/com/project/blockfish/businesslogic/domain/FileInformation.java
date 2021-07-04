@@ -32,6 +32,9 @@ public class FileInformation {
     @NotBlank
     private String osType;
 
+    @NotBlank
+    private String categoryCode;
+
     private int downCount;
 
     @NotBlank
@@ -54,15 +57,17 @@ public class FileInformation {
     private Boolean fileLock = false;
 
     @Builder
-    public FileInformation(String name, String imageAddress, String fileAddress, String info, String osType, int downCount, String blockChainAddress, LocalDateTime createAt) {
+    public FileInformation(String name, String imageAddress, String fileAddress, String info, String osType, String categoryCode, int downCount, String blockChainAddress, LocalDateTime createAt) {
         this.name = name;
         this.imageAddress = imageAddress;
         this.fileAddress = fileAddress;
         this.info = info;
         this.osType = osType;
+        this.categoryCode = categoryCode;
         this.downCount = downCount;
         this.blockChainAddress = blockChainAddress;
         this.createAt = createAt;
+        this.updateAt = createAt;
     }
 
     public int addStarRank(int starRank) {
