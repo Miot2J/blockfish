@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestPropertySource(locations = "classpath:SftpConnection_test.properties")
 @SpringBootTest
-
 public class SFTPSenderTest {
 
     public String makeMD5Hash(File file) throws IOException, NoSuchAlgorithmException {

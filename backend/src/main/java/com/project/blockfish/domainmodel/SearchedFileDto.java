@@ -98,21 +98,9 @@ public class SearchedFileDto {
         this.starRank = starRank;
     }
 
-/*    public List<Comment> getComments() {
-        return comments;
+    public String getCategoryName() {
+        return categoryName;
     }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Category> getCategory() {
-        return category;
-    }
-
-    public void setCategory(List<Category> category) {
-        this.category = category;
-    }*/
 
     public LocalDateTime getUpdateAt() {
         return updateAt;
