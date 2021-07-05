@@ -2,6 +2,7 @@ package com.project.blockfish.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.blockfish.businesslogic.domain.Category;
 import com.project.blockfish.businesslogic.response.Response;
 import com.project.blockfish.businesslogic.domain.SFTPSender;
 import com.project.blockfish.domainmodel.FileInformationDto;
@@ -19,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
 @RestController
@@ -29,7 +29,7 @@ public class FileController {
     private static final String UPLOAD_DIRECTORY = "http://sonjuhy.iptime.org/home/disk1/blockfish/uploads/";
     private static final String UPLOAD_DIRECTORY2 = "sonjuhy.iptime.org/websites/ssl/www/blockfish/uploads/";
 
-    private final FileInformationService fileService;
+    private final FileInformationService fileInformationService;
     private final KlayService klayService;
     private final JwtUtil jwtUtil;
     private final SFTPSender sftpSender;
@@ -48,6 +48,7 @@ public class FileController {
         String userId = jwtUtil.getUserId(accessToken);
         System.out.println("userId = " + userId);
         System.out.println("targetFile = " + targetFile);
+
         try {
             InputStream fileStream = file.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);
@@ -69,7 +70,7 @@ public class FileController {
     //    디비에서 파일 이름을 아이디로 불러오기
     @GetMapping("/getFile")
     public String getFile(@RequestBody Long fileId) throws NotFoundException {
-        FileInformation file = fileService.findByFileId(fileId);
+        FileInformation file = fileInformationService.findByFileId(fileId);
         System.out.println("file.getName() = " + file.getName());
 
         return file.getName();
@@ -78,7 +79,7 @@ public class FileController {
     //    서버에 파일이 업로드 되는지 테스트
     @PostMapping("/uploadTest")
     public Response uploadTest(@RequestParam("files") MultipartFile file
-            , @RequestParam(value = "FileInformationDto") String fileInformationString) throws IOException, NoSuchAlgorithmException {
+            , @RequestParam(value = "FileInformationDto") String fileInformationString) throws IOException{
 
         sftpSender.sftpConnect();
         sftpSender.upload(file);
@@ -101,20 +102,19 @@ public class FileController {
                 UPLOAD_DIRECTORY2,
                 fileInformationDto.getInfo(),
                 fileInformationDto.getOsType(),
+                Category.findCodeByName("기타"),
                 0,
 //                클레이튼 컨트랙트 생성시 발생하는 가스 비용때문에 임시 주소 입력
 //                klayDto.getContractAddress(),
                 "클레이튼 임시주소",
-                0,
                 ldt);
         Response response = new Response();
 
         try {
-            fileService.saveFileInfo(fileInformation);
+            fileInformationService.saveFileInfo(fileInformation);
             response.setResponse("success");
             response.setMessage("파일 업로드가 성공적으로 완료했습니다.");
         } catch (Exception e) {
-
             response.setResponse("fail");
             response.setMessage("파일 업로드 중 오류가 발생했습니다.");
             response.setData(e.toString());
@@ -142,7 +142,7 @@ public class FileController {
     //    로컬에 파일이 업로드 되는지 테스트
     @PostMapping("/uploadLocalTest")
     public Response uploadLocalTest(@RequestParam(value = "files") MultipartFile file,
-                                    @RequestParam(value = "FileInformationDto") String fileInformationString) throws IOException, NoSuchAlgorithmException {
+                                    @RequestParam(value = "FileInformationDto") String fileInformationString) throws IOException {
         System.out.println("----upload test-----");
 
         String absolutePath = System.getProperty("user.dir");
@@ -175,16 +175,16 @@ public class FileController {
                 savedPath,
                 fileInformationDto.getInfo(),
                 fileInformationDto.getOsType(),
+                Category.findCodeByName("기타"),
                 0,
 //                클레이튼 컨트랙트 생성시 발생하는 가스 비용때문에 임시 주소 입력
 //                klayDto.getContractAddress(),
                 "클레이튼 임시주소",
-                0,
                 ldt);
         Response response = new Response();
 
         try {
-            fileService.saveFileInfo(fileInformation);
+            fileInformationService.saveFileInfo(fileInformation);
             response.setResponse("success");
             response.setMessage("파일 업로드가 성공적으로 완료했습니다.");
         } catch (Exception e) {
