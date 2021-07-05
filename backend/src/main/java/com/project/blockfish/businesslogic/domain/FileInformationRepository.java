@@ -9,24 +9,22 @@ import org.springframework.data.jpa.repository.Query;
 // JPA에선 단순히 인터페이스 생성 후 JpaRepository 를 상속하면 기본적인 crud 생성
 // 상속시 파라미터로 <엔티티클래스,Pk타입>을 지정
 public interface FileInformationRepository extends JpaRepository<FileInformation, Long> {
-    Page<FileInformation> findAll(Pageable pageable);
+    @Query(
+            value = "SELECT * FROM file_informations WHERE os_type LIKE :osType",
+            countQuery = "SELECT COUNT(file_id) FROM file_informations WHERE os_type LIKE :osType", nativeQuery = true
+    )
+    Page<FileInformation> findByOs(String osType, Pageable pageable);
 
     @Query(
-            value = "SELECT FileInformation FROM FileInformation FileInformation WHERE FileInformation.osType LIKE :osType",
-            countQuery = "SELECT COUNT(FileInformation.id) FROM FileInformation WHERE FileInformation.osType LIKE :osType"
+            value = "SELECT * FROM file_informations WHERE name LIKE %:keyword% OR info LIKE %:keyword%",
+            countQuery = "SELECT COUNT(file_id) FROM file_informations WHERE name LIKE %:keyword% OR info LIKE %:keyword%", nativeQuery = true
     )
-    Page<FileInformation> finByOs(String osType);
+    Page<FileInformation> findByKeyword(String keyword, Pageable pageable);
 
     @Query(
-            value = "SELECT FileInformation FROM FileInformation FileInformation WHERE FileInformation.name LIKE %:keyword% OR FileInformation.info LIKE %:keyword%",
-            countQuery = "SELECT COUNT(FileInformation.id) FROM FileInformation WHERE FileInformation.name LIKE %:keyword% OR FileInformation.info LIKE %:keyword%"
+            value = "SELECT * FROM file_informations WHERE os_type LIKE :osType AND category_code LIKE :category",
+            countQuery = "SELECT COUNT(file_id) FROM file_informations WHERE os_type LIKE :osType AND category_code LIKE :category", nativeQuery = true
     )
-    Page<FileInformation> finByKeyword(String keyword);
-
-    @Query(
-            value = "SELECT FileInformation FROM FileInformation FileInformation WHERE FileInformation.osType LIKE :osType AND FileInformation.categoryCode LIKE :category",
-            countQuery = "SELECT COUNT(FileInformation.id) FROM FileInformation WHERE FileInformation.osType LIKE :osType AND FileInformation.categoryCode LIKE :category"
-    )
-    Page<FileInformation> finByCategory(String osType, String category);
+    Page<FileInformation> findByCategory(String osType, String category, Pageable pageable);
 }
 
