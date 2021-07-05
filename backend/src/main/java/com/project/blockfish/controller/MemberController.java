@@ -1,10 +1,10 @@
 package com.project.blockfish.controller;
 
-import com.project.blockfish.businesslogic.domain.Member;
-import com.project.blockfish.businesslogic.service.*;
-import com.project.blockfish.businesslogic.response.Response;
-import com.project.blockfish.businesslogic.request.RequestLoginUser;
-import com.project.blockfish.businesslogic.request.RequestVerifyEmail;
+import com.project.blockfish.member.Member;
+import com.project.blockfish.member.service.*;
+import com.project.blockfish.response.Response;
+import com.project.blockfish.request.RequestLoginUser;
+import com.project.blockfish.request.RequestVerifyEmail;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -47,7 +47,7 @@ public class MemberController {
     }
 
     @PostMapping("/verify")
-    public Response verify(@RequestBody RequestVerifyEmail requestVerifyEmail, HttpServletRequest req, HttpServletResponse res) throws NotFoundException {
+    public Response verify(@RequestBody RequestVerifyEmail requestVerifyEmail) throws NotFoundException {
         Response response;
         try {
             Member member = authService.findByUserId(requestVerifyEmail.getUserId());
@@ -115,13 +115,13 @@ public class MemberController {
             String userId = jwtUtil.getUserId(accessToken);
             System.out.println("userId = " + userId);
             redisUtil.deleteData(refreshToken);
-            System.out.println("3");
+
             redisUtil.setDataExpire(accessToken, userId, JwtUtil.TOKEN_VALIDATION_SECOND); //블랙리스트로 access 토큰 추가
-            System.out.println("4");
+
             res.addCookie(accessTokenDelete);
-            System.out.println("5");
+
             res.addCookie(refreshTokenDelete);
-            System.out.println("6");
+
            return new Response("success", "로그아웃에 성공했습니다", userId);
         } catch (Exception e) {
             return new Response("error", "로그아웃에 실패했습니다.", e.getMessage());

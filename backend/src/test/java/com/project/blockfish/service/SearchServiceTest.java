@@ -1,14 +1,13 @@
 package com.project.blockfish.service;
 
-import com.project.blockfish.businesslogic.domain.Category;
-import com.project.blockfish.businesslogic.domain.FileInformation;
-import com.project.blockfish.businesslogic.domain.FileInformationRepository;
-import com.project.blockfish.businesslogic.service.impl.SearchServiceImpl;
-import com.project.blockfish.domainmodel.SearchedFileDto;
+import com.project.blockfish.file.Category;
+import com.project.blockfish.file.FileInformation;
+import com.project.blockfish.file.FileInformationRepository;
+import com.project.blockfish.file.service.impl.SearchServiceImpl;
+import com.project.blockfish.dto.SearchedFileDto;
 import org.junit.After;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.api.BDDAssertions.and;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.mock;
 

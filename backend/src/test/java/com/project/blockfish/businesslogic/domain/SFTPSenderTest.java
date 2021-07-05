@@ -1,7 +1,7 @@
 package com.project.blockfish.businesslogic.domain;
 
 import com.jcraft.jsch.*;
-import com.project.blockfish.businesslogic.util.Converter;
+import com.project.blockfish.util.Converter;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

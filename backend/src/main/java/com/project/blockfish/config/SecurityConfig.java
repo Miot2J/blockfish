@@ -1,6 +1,6 @@
 package com.project.blockfish.config;
 
-import com.project.blockfish.businesslogic.service.MyUserDetailsService;
+import com.project.blockfish.member.service.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

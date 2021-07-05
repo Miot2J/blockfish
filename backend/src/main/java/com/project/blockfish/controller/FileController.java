@@ -5,15 +5,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.blockfish.businesslogic.domain.Category;
 import com.project.blockfish.businesslogic.response.Response;
 import com.project.blockfish.businesslogic.domain.SFTPSender;
+import com.project.blockfish.businesslogic.service.SearchService;
 import com.project.blockfish.domainmodel.FileInformationDto;
 import com.project.blockfish.domainmodel.KlayDto;
 import com.project.blockfish.businesslogic.service.FileInformationService;
 import com.project.blockfish.businesslogic.service.JwtUtil;
 import com.project.blockfish.businesslogic.service.klay.KlayService;
 import com.project.blockfish.businesslogic.domain.FileInformation;
+import com.project.blockfish.domainmodel.SearchedFileDto;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,11 +39,7 @@ public class FileController {
     private final KlayService klayService;
     private final JwtUtil jwtUtil;
     private final SFTPSender sftpSender;
-
-    @GetMapping("/sftpConnect")
-    public void sftpConnectTest() {
-        sftpSender.sftpConnect();
-    }
+    private final SearchService searchService;
 
     @PostMapping("/upload")
     public KlayDto uploadSingle(@RequestParam("files") MultipartFile file, @RequestHeader(value = "accessToken") String accessToken,
@@ -79,7 +81,7 @@ public class FileController {
     //    서버에 파일이 업로드 되는지 테스트
     @PostMapping("/uploadTest")
     public Response uploadTest(@RequestParam("files") MultipartFile file
-            , @RequestParam(value = "FileInformationDto") String fileInformationString) throws IOException{
+            , @RequestParam(value = "FileInformationDto") String fileInformationString) throws IOException {
 
         sftpSender.sftpConnect();
         sftpSender.upload(file);
@@ -164,7 +166,7 @@ public class FileController {
                 now.getMonth(), now.getDayOfMonth(), now.getHour(), now.getMinute(), 0);
         // klayDto생성
         System.out.println("klay test");
-        String fileHash = sftpSender.getHash(file.getOriginalFilename());
+//        String fileHash = sftpSender.getHash(file.getOriginalFilename());
 //        KlayDto klayDto = klayService.sendHashToKlay(fileHash, "test");
 
 
@@ -196,5 +198,41 @@ public class FileController {
         System.out.println("파일이 저장된 위치/ 파일명 = " + savedPath);
 
         return response;
+    }
+
+    // 모든 파일정보 검색 하기
+    @GetMapping("/searchAll")
+    public ResponseEntity searchAllFileInfo(final Pageable pageable) {
+        Page<SearchedFileDto> searchedFileDtos = searchService.searchAll(pageable);
+
+        return new ResponseEntity<>(searchedFileDtos, HttpStatus.OK);
+    }
+
+    // Os로 파일 검색하기
+    @GetMapping("/searchByOs")
+    public ResponseEntity searchFileInfoByOs(final Pageable pageable,
+                                             @RequestBody String osType) {
+        Page<SearchedFileDto> searchedFileDtos = searchService.searchByOs(osType, pageable);
+
+        return new ResponseEntity<>(searchedFileDtos, HttpStatus.OK);
+    }
+
+    // Keyword로 파일 검색하기
+    @GetMapping("/searchByKeyword")
+    public ResponseEntity searchFileInfoByKeyword(final Pageable pageable,
+                                                  @RequestBody String keyword) {
+        Page<SearchedFileDto> searchedFileDtos = searchService.searchByKeyWord(keyword, pageable);
+
+        return new ResponseEntity<>(searchedFileDtos, HttpStatus.OK);
+    }
+
+    // category로 파일 검색하기
+    @GetMapping("/searchByCategory")
+    public ResponseEntity searchFileInfoByCategory(final Pageable pageable,
+                                                   @RequestBody String osType,
+                                                   @RequestBody String category) {
+        Page<SearchedFileDto> searchedFileDtos = searchService.searchByCategory(osType, category, pageable);
+
+        return new ResponseEntity<>(searchedFileDtos, HttpStatus.OK);
     }
 }

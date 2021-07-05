@@ -1,6 +1,8 @@
 package com.project.blockfish.businesslogic.domain;
 
-import com.project.blockfish.businesslogic.service.FileInformationService;
+import com.project.blockfish.file.Category;
+import com.project.blockfish.file.FileInformation;
+import com.project.blockfish.file.FileInformationRepository;
 import org.junit.After;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
