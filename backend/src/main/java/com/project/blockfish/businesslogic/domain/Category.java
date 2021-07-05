@@ -23,7 +23,7 @@ public enum Category {
     DOCUMENTS_VIEWER("문서 뷰어", "D001"),
     DOCUMENTS_EDITING("문서 편집", "D002"),
 
-    ETC("기타", "000");
+    ETC("기타", "ETC000");
 
 
     private final String categoryName;
