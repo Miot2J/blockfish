@@ -1,0 +1,12 @@
+[2021-07-11 23:15:09:1692][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - Starting SearchServiceImplTest using Java 11.0.9 on chajaeeon-ui-MacBookPro.local with PID 31144 (started by j in /Users/j/IdeaProjects/blockfish/backend)
+[2021-07-11 23:15:09:1713][Test worker] DEBUG c.p.b.f.s.i.SearchServiceImplTest - Running with Spring Boot v2.4.4, Spring v5.3.5
+[2021-07-11 23:15:09:1744][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - No active profile set, falling back to default profiles: default
+[2021-07-11 23:15:13:6045][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - Starting SearchServiceImplTest using Java 11.0.9 on chajaeeon-ui-MacBookPro.local with PID 31144 (started by j in /Users/j/IdeaProjects/blockfish/backend)
+[2021-07-11 23:15:13:6047][Test worker] DEBUG c.p.b.f.s.i.SearchServiceImplTest - Running with Spring Boot v2.4.4, Spring v5.3.5
+[2021-07-11 23:15:13:6048][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - No active profile set, falling back to default profiles: default
+[2021-07-11 23:15:15:7641][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - Starting SearchServiceImplTest using Java 11.0.9 on chajaeeon-ui-MacBookPro.local with PID 31144 (started by j in /Users/j/IdeaProjects/blockfish/backend)
+[2021-07-11 23:15:15:7644][Test worker] DEBUG c.p.b.f.s.i.SearchServiceImplTest - Running with Spring Boot v2.4.4, Spring v5.3.5
+[2021-07-11 23:15:15:7646][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - No active profile set, falling back to default profiles: default
+[2021-07-11 23:15:17:9159][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - Starting SearchServiceImplTest using Java 11.0.9 on chajaeeon-ui-MacBookPro.local with PID 31144 (started by j in /Users/j/IdeaProjects/blockfish/backend)
+[2021-07-11 23:15:17:9161][Test worker] DEBUG c.p.b.f.s.i.SearchServiceImplTest - Running with Spring Boot v2.4.4, Spring v5.3.5
+[2021-07-11 23:15:17:9163][Test worker] INFO  c.p.b.f.s.i.SearchServiceImplTest - No active profile set, falling back to default profiles: default

@@ -1,0 +1,13 @@
+[2021-07-18 21:49:32:900][main] INFO  c.p.blockfish.BlockfishApplication - Starting BlockfishApplication using Java 11.0.9 on chajaeeon-ui-MacBookPro.local with PID 50217 (/Users/j/IdeaProjects/blockfish/backend/build/classes/java/main started by j in /Users/j/IdeaProjects/blockfish)
+[2021-07-18 21:49:32:907][main] DEBUG c.p.blockfish.BlockfishApplication - Running with Spring Boot v2.4.4, Spring v5.3.5
+[2021-07-18 21:49:32:917][main] INFO  c.p.blockfish.BlockfishApplication - No active profile set, falling back to default profiles: default
+[2021-07-18 21:49:47:15902][main] DEBUG c.p.b.config.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+[2021-07-18 21:58:13:1223][main] INFO  c.p.blockfish.BlockfishApplication - Starting BlockfishApplication using Java 11.0.9 on chajaeeon-ui-MacBookPro.local with PID 892 (/Users/j/IdeaProjects/blockfish/backend/build/classes/java/main started by j in /Users/j/IdeaProjects/blockfish)
+[2021-07-18 21:58:13:1229][main] DEBUG c.p.blockfish.BlockfishApplication - Running with Spring Boot v2.4.4, Spring v5.3.5
+[2021-07-18 21:58:13:1232][main] INFO  c.p.blockfish.BlockfishApplication - No active profile set, falling back to default profiles: default
+[2021-07-18 21:58:28:16263][main] DEBUG c.p.b.config.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+[2021-07-18 21:58:29:17184][main] INFO  c.p.blockfish.BlockfishApplication - Started BlockfishApplication in 16.843 seconds (JVM running for 18.168)
+[2021-07-18 22:04:09:356775][http-nio-8080-exec-1] DEBUG c.p.b.controller.MemberController - Select Start
+[2021-07-18 22:04:15:363268][http-nio-8080-exec-3] DEBUG c.p.b.controller.MemberController - token = eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiaWF0IjoxNjI2NjEzNDU1LCJleHAiOjE2MjY2MjM0NTV9.R2xtvuD4RbNsTIhVj8tWg9WD7CTyDF6ZSdmClcBZD4U
+[2021-07-18 22:05:15:423253][http-nio-8080-exec-5] DEBUG c.p.b.controller.FileController - uploadFileImageTest API 시작
+[2021-07-18 22:05:27:435610][http-nio-8080-exec-5] DEBUG c.p.b.controller.FileController - 파일이 저장된 위치/ 파일명 = sonjuhy.iptime.org/websites/ssl/www/blockfish/uploads/01. JPA 소개.pdf
